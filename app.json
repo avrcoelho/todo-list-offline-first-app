@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "offline-first-app",
+    "slug": "offline-first-app",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
