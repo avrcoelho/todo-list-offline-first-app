@@ -1,8 +1,8 @@
 export const TaskLocalUpdatedSchema = {
   name: "TaskLocalUpdated",
   properties: {
-    id: "uuid",
+    _id: "objectId",
     type: "string",
   },
-  primaryKey: "id",
+  primaryKey: "_id",
 };
