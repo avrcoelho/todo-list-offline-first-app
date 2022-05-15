@@ -5,9 +5,15 @@ import { Store } from "../store";
 const storeInstance = Store.getInstance();
 
 export class TaskRepository implements TasRepositoryPort {
-  async find(): Promise<Task[]> {
+  async find(params = {}): Promise<Task[]> {
+    const [firstSearch, ...anotherSerach] = Object.entries(params).map(
+      ([key, value]) => `${key}='${value}'`
+    );
     const store = await storeInstance.init();
-    return store.objects<Task>("Tasks").map((task) => task);
+    const tasks = store
+      .objects<Task>("Tasks")
+      .filtered(firstSearch, ...anotherSerach);
+    return tasks.map((task) => task);
   }
 
   async findById(id: string): Promise<Task> {
