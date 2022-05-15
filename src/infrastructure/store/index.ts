@@ -1,4 +1,6 @@
+import Realm from "realm";
 import { TaskSchema } from "./schemas/Task";
+import { TaskLocalUpdatedSchema } from "./schemas/TaskLocalUpdated";
 
 export class Store {
   private static instance: Store;
@@ -20,7 +22,7 @@ export class Store {
     }
     return Realm.open({
       path: "mylocalDB",
-      schema: [TaskSchema],
+      schema: [TaskSchema, TaskLocalUpdatedSchema],
     });
   }
 }
