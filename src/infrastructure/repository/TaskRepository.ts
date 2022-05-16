@@ -8,16 +8,18 @@ export class TaskRepository implements TasRepositoryPort {
       ([key, value]) => `${key}='${value}'`
     );
     const store = await Store.init();
-    const tasks = store
-      .objects<Task>("Tasks")
-      .filtered(firstSearch, ...anotherSerach);
+    let tasks = store.objects<Task>("Task");
+    if (firstSearch) {
+      tasks = tasks.filtered(firstSearch, ...anotherSerach);
+    }
+    const parsedTasks = tasks.map((task) => task);
     store.close();
-    return tasks.map((task) => task);
+    return parsedTasks;
   }
 
   async findById(id: string): Promise<Task> {
     const store = await Store.init();
-    const tasks = store.objectForPrimaryKey<Task>("Tasks", id);
+    const tasks = store.objectForPrimaryKey<Task>("Task", id);
     store.close();
     return tasks;
   }
@@ -30,8 +32,8 @@ export class TaskRepository implements TasRepositoryPort {
     store.close();
   }
 
-  async update({ id, ...restTaskToUpdate }: Task): Promise<void> {
-    const task = await this.findById(id);
+  async update({ _id, ...restTaskToUpdate }: Task): Promise<void> {
+    const task = await this.findById(_id);
     const store = await Store.init();
     store.write(() => {
       Object.assign(task, restTaskToUpdate);

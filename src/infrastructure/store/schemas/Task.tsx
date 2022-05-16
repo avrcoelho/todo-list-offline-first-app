@@ -2,7 +2,7 @@ export const TaskSchema = {
   name: "Task",
   properties: {
     _id: "objectId",
-    taskId: "stromg",
+    taskId: "string",
     name: "string",
     status: "string?",
   },

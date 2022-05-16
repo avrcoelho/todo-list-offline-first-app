@@ -1,5 +1,5 @@
 export interface Task {
-  id: string;
+  _id: string;
   name: string;
   status: "solved" | "not solved";
   localStatus: "created" | "updated" | "detected";
