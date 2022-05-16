@@ -24,7 +24,7 @@ export class TaskRepository implements TasRepositoryPort {
     return tasks;
   }
 
-  async create(task: Task): Promise<void> {
+  async create(task: Omit<Task, "_id">): Promise<void> {
     const store = await Store.init();
     store.write(() => {
       store.create("Task", task);
