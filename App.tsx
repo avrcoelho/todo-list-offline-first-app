@@ -3,11 +3,16 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { makeGetTasks } from "./src/main/factories/usecases/getTasks";
 import { makeCreateTask } from "./src/main/factories/usecases/createTask";
+import { makeUpdateTask } from "./src/main/factories/usecases/updateTask";
 
 export default function App() {
   useEffect(() => {
-    makeCreateTask()
-      .execute({ name: "task 1", status: "solved" })
+    makeUpdateTask()
+      .execute({
+        name: "task updated",
+        status: "solved",
+        _id: "62841ab3a2e00c29342154e3",
+      })
       .then((response) => {
         console.log(response);
       })
