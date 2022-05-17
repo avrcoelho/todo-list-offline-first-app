@@ -13,23 +13,21 @@ export class TaskRepository implements TasRepositoryPort {
       tasks = tasks.filtered(firstSearch, ...anotherSerach);
     }
     const parsedTasks = tasks.map((task) => task);
-    store.close();
     return parsedTasks;
   }
 
   async findById(id: string): Promise<Task> {
     const store = await Store.init();
     const tasks = store.objectForPrimaryKey<Task>("Task", id);
-    store.close();
     return tasks;
   }
 
   async create(task: Omit<Task, "_id">): Promise<void> {
     const store = await Store.init();
+    const _id = new Realm.BSON.ObjectId();
     store.write(() => {
-      store.create("Task", task);
+      store.create("Task", { _id, ...task });
     });
-    store.close();
   }
 
   async update({ _id, ...restTaskToUpdate }: Task): Promise<void> {
@@ -38,7 +36,6 @@ export class TaskRepository implements TasRepositoryPort {
     store.write(() => {
       Object.assign(task, restTaskToUpdate);
     });
-    store.close();
   }
 
   async deleteById(id: string): Promise<void> {
@@ -48,6 +45,5 @@ export class TaskRepository implements TasRepositoryPort {
       store.delete(task);
       task = null;
     });
-    store.close();
   }
 }

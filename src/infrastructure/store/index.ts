@@ -5,7 +5,7 @@ import { TaskLocalUpdatedSchema } from "./schemas/TaskLocalUpdated";
 export class Store {
   static async init() {
     return Realm.open({
-      path: "mylocalDB",
+      path: "mylocalDatabase",
       schema: [TaskSchema, TaskLocalUpdatedSchema],
     });
   }
