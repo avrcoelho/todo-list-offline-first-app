@@ -1,4 +1,3 @@
-import React from "react";
 import { TextInputProps } from "react-native";
 import { UseFormRegisterReturn } from "react-hook-form";
 
