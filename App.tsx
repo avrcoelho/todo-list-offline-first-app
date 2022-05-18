@@ -1,10 +1,10 @@
 import "react-native-gesture-handler";
 import { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
 import { makeGetTasks } from "./src/main/factories/usecases/getTasks";
-import { makeCreateTask } from "./src/main/factories/usecases/createTask";
 import { makeUpdateTask } from "./src/main/factories/usecases/updateTask";
+import { Home } from "./src/presentation/pages/Home";
+import { SafeAreaView } from "react-native";
 
 export default function App() {
   useEffect(() => {
@@ -33,18 +33,9 @@ export default function App() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <SafeAreaView style={{ flex: 1 }}>
       <StatusBar style="auto" />
-    </View>
+      <Home />
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
