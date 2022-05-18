@@ -4,13 +4,13 @@ import { UseFormRegisterReturn } from "react-hook-form";
 
 import { Container, Input, Label, Error } from "./styles";
 
-type InputTextProps = TextInputProps & {
+type InputTextProps = Omit<TextInputProps, "accessibilityRole"> & {
   register?: UseFormRegisterReturn | {};
   error?: string;
   label?: string;
 };
 
-export const InputText: React.FC = ({
+export const InputText = ({
   register,
   label,
   error,
@@ -19,7 +19,12 @@ export const InputText: React.FC = ({
   return (
     <Container>
       {!!label && <Label>{label}</Label>}
-      <Input {...register} {...restInputProps} />
+      <Input
+        underlineColorAndroid="transparent"
+        disableFullscreenUI
+        {...register}
+        {...restInputProps}
+      />
       {!!error && <Error>{error}</Error>}
     </Container>
   );
