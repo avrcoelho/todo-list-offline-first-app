@@ -19,6 +19,7 @@
     "react-hook-form": "^7.31.1",
     "react-native": "0.68.2",
     "react-native-gesture-handler": "~2.2.1",
+    "react-native-hook-notification": "^2.2.0",
     "react-native-reanimated": "~2.8.0",
     "react-native-web": "0.17.7",
     "realm": "^10.17.0",

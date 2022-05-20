@@ -1,13 +1,28 @@
 import "react-native-gesture-handler";
 import { useEffect } from "react";
+import { Platform, SafeAreaView } from "react-native";
 import { StatusBar } from "expo-status-bar";
+import {
+  NotificationContainer,
+  useNotification,
+} from "react-native-hook-notification";
+
 import { makeGetTasks } from "./src/main/factories/usecases/getTasks";
 import { makeUpdateTask } from "./src/main/factories/usecases/updateTask";
 import { Home } from "./src/presentation/pages/Home";
-import { SafeAreaView } from "react-native";
+
+const notificationXoffset = Platform.select({
+  ios: 40,
+  android: 0,
+});
 
 export default function App() {
+  const notification = useNotification();
+
   useEffect(() => {
+    notification.success({
+      text: "Notification dispatched",
+    });
     makeUpdateTask()
       .execute({
         name: "task updated",
@@ -36,6 +51,7 @@ export default function App() {
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar style="auto" />
       <Home />
+      <NotificationContainer xOffset={notificationXoffset} />
     </SafeAreaView>
   );
 }

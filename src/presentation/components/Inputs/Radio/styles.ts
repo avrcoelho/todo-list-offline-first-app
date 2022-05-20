@@ -28,9 +28,9 @@ const selectedStyle = css`
 `;
 
 export const Buttom = styled.TouchableOpacity<ButtomProps>`
-  height: 24px;
-  width: 24px;
-  border-radius: 12px;
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
   margin-right: 8px;
   border-width: 1px;
   border-color: #ccc;
