@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
 
+import { InputRadioOption } from "../../../types/InputRadioOption";
 import { Container, Title, Field, Label, Buttom } from "./styles";
 
-type Option = {
-  label: string;
-  value: string | number;
-};
-
 type InputRadioProps = {
-  options: Option[];
+  options: InputRadioOption[];
   onChange(prop: any): void;
   value: string | number;
   label?: string;
