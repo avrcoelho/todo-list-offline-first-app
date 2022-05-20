@@ -24,6 +24,7 @@ export const Input = styled.TextInput<InputProps>`
   border-bottom-width: 2px;
   border-bottom-color: #ccc;
   font-size: 16px;
+  color: #666;
 
   ${({ $isFocused }) => $isFocused && isFocusedStyle}
   ${({ $isErrored }) => $isErrored && isErroredStyle}
@@ -32,7 +33,7 @@ export const Input = styled.TextInput<InputProps>`
 export const Label = styled.Text`
   font-size: 14px;
   font-weight: bold;
-  color: #666;
+  color: #001e2b;
 `;
 
 export const Error = styled.Text`

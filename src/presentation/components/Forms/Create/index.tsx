@@ -6,7 +6,7 @@ import { Status } from "../../../constants/Status";
 import { DefaultButton } from "../../Buttons/Default";
 import { InputTextControlled } from "../../Inputs/TextControlled";
 import { InputRadioControlled } from "../../Inputs/RadioControlled";
-import { Container } from "./styles";
+import { Container, Title } from "./styles";
 
 type FormData = {
   name: string;
@@ -27,6 +27,8 @@ export const FormCreate = () => {
 
   return (
     <Container>
+      <Title>Create task</Title>
+
       <InputTextControlled
         name="name"
         label="Name"
