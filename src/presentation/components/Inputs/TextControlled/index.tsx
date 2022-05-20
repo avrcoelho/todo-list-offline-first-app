@@ -1,5 +1,6 @@
 import { TextInputProps } from "react-native";
 import { Control, Controller } from "react-hook-form";
+
 import { InputText } from "../Text";
 
 type InputTextControlledProps = Omit<TextInputProps, "accessibilityRole"> & {
