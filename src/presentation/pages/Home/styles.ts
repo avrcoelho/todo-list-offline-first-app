@@ -18,8 +18,3 @@ const bottomSheetBorder = css`
 export const BottomSheetContainer = styled(BottomSheet)<BottomSheetProps>`
   ${({ $isOpen }) => $isOpen && bottomSheetBorder}
 `;
-
-export const BottomSheetContent = styled.View`
-  flex: 1;
-  align-items: center;
-`;

@@ -1,8 +1,7 @@
-import { Text } from "react-native";
-
 import { ButtonCreate } from "../../components/Buttons/Create";
+import { FormCreate } from "../../components/Forms/Create";
 import { useController } from "./useController";
-import { Container, BottomSheetContent, BottomSheetContainer } from "./styles";
+import { Container, BottomSheetContainer } from "./styles";
 
 export const Home = (): JSX.Element => {
   const { isOpen, bottomSheetRef, onHandleCreate, onHandleSheetChanges } =
@@ -19,9 +18,7 @@ export const Home = (): JSX.Element => {
         onChange={onHandleSheetChanges}
         $isOpen={isOpen}
       >
-        <BottomSheetContent>
-          <Text>Awesome 🎉</Text>
-        </BottomSheetContent>
+        <FormCreate />
       </BottomSheetContainer>
     </Container>
   );

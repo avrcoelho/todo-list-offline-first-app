@@ -3,17 +3,18 @@ import { RectButtonProps } from "react-native-gesture-handler";
 
 import { Container, Content, ButtonText, Loader } from "./styles";
 
-type ButtonProps<T = {}> = T & RectButtonProps & { children: string };
+type ButtonProps<T = {}> = T &
+  RectButtonProps & { children: string; isLoading?: boolean };
 
 export const DefaultButton = ({
   children,
-  enabled,
+  isLoading = false,
   ...rest
 }: ButtonProps): JSX.Element => {
   return (
-    <Container {...rest}>
+    <Container $isLoading={isLoading} {...rest}>
       <Content accessibilityLabel="Create" accessibilityRole="button">
-        {enabled ? <ButtonText>{children}</ButtonText> : <Loader />}
+        {isLoading ? <Loader /> : <ButtonText>{children}</ButtonText>}
       </Content>
     </Container>
   );

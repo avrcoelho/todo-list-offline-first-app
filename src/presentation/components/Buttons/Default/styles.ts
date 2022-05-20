@@ -1,25 +1,30 @@
 import styled from "styled-components/native";
 import { RectButton } from "react-native-gesture-handler";
 
-export const Container = styled(RectButton)`
+type ContainerProps = {
+  $isLoading: boolean;
+};
+
+export const Container = styled(RectButton)<ContainerProps>`
   width: 100%;
-  height: 60px;
+  height: 50px;
   background-color: #00ed64;
   border-radius: 10px;
-  justify-content: center;
-  align-items: center;
   margin-top: 14px;
-  opacity: ${({ enabled }) => (enabled ? 1 : 0.6)};
+  opacity: ${({ $isLoading }) => ($isLoading ? 0.6 : 1)};
 `;
 
 export const Content = styled.View`
   flex: 1;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ButtonText = styled.Text`
   color: #001e2b;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
+  text-transform: uppercase;
 `;
 
 export const Loader = styled.ActivityIndicator.attrs({
