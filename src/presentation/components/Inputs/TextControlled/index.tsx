@@ -14,11 +14,13 @@ export const InputTextControlled = ({
   name,
   ...restProps
 }: InputTextControlledProps) => {
-  <Controller
-    name={name}
-    control={control}
-    render={({ field: { onChange, value } }) => (
-      <InputText {...restProps} onChange={onChange} value={value} />
-    )}
-  />;
+  return (
+    <Controller
+      name={name}
+      control={control}
+      render={({ field: { onChange, value } }) => (
+        <InputText {...restProps} onChangeText={onChange} value={value} />
+      )}
+    />
+  );
 };
