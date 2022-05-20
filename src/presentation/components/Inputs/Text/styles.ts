@@ -1,20 +1,32 @@
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
 
 export const Container = styled.View`
-  height: 60px;
+  min-height: 60px;
   width: 100%;
   margin-bottom: 10px;
 `;
 
 type InputProps = {
   $isFocused: boolean;
+  $isErrored: boolean;
 };
 
+const isErroredStyle = css`
+  border-bottom-color: #f00;
+`;
+const isFocusedStyle = css`
+  border-bottom-color: #00ed64;
+`;
+
 export const Input = styled.TextInput<InputProps>`
-  flex: 1;
+  min-height: 40px;
+  width: 100%;
   border-bottom-width: 2px;
-  border-bottom-color: ${({ $isFocused }) => ($isFocused ? "#00ed64" : "#ccc")};
+  border-bottom-color: #ccc;
   font-size: 16px;
+
+  ${({ $isFocused }) => $isFocused && isFocusedStyle}
+  ${({ $isErrored }) => $isErrored && isErroredStyle}
 `;
 
 export const Label = styled.Text`
@@ -23,4 +35,7 @@ export const Label = styled.Text`
   color: #666;
 `;
 
-export const Error = styled.Text``;
+export const Error = styled.Text`
+  font-size: 14px;
+  color: #f00;
+`;

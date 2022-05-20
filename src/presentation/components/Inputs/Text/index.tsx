@@ -25,6 +25,7 @@ export const InputText = ({
         onFocus={() => setIsFocusec(true)}
         onBlur={() => setIsFocusec(false)}
         $isFocused={isFocused}
+        $isErrored={!!error}
       />
       {!!error && <Error>{error}</Error>}
     </Container>
