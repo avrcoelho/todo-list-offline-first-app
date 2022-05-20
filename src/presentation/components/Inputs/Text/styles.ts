@@ -3,7 +3,7 @@ import styled, { css } from "styled-components/native";
 export const Container = styled.View`
   min-height: 60px;
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 `;
 
 type InputProps = {

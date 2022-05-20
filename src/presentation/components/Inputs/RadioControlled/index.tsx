@@ -9,6 +9,7 @@ type InputRadioControlledProps = Omit<TextInputProps, "accessibilityRole"> & {
   name: string;
   control: Control<any>;
   label?: string;
+  error?: string;
 };
 
 export const InputRadioControlled = ({

@@ -1,18 +1,20 @@
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
 
 export const Container = styled.View`
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 `;
 
 export const Title = styled.Text`
   font-size: 14px;
   font-weight: bold;
   color: #666;
+  margin-bottom: 12px;
 `;
 
 export const Field = styled.View`
   flex-direction: row;
+  align-items: center;
   margin-bottom: 10px;
 `;
 
@@ -20,13 +22,21 @@ type ButtomProps = {
   $isSelected: boolean;
 };
 
+const selectedStyle = css`
+  border-color: #00ed64;
+  background-color: #00ed64;
+`;
+
 export const Buttom = styled.TouchableOpacity<ButtomProps>`
-  height: 28px;
-  width: 28px;
-  border-radius: 14px;
+  height: 24px;
+  width: 24px;
+  border-radius: 12px;
   margin-right: 8px;
   border-width: 1px;
-  border-color: ${({ $isSelected }) => ($isSelected ? "#00ed64" : "#ccc")};
+  border-color: #ccc;
+  background-color: transparent;
+
+  ${({ $isSelected }) => $isSelected && selectedStyle};
 `;
 
 export const Label = styled.Text`

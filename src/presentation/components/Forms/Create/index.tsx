@@ -2,8 +2,10 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { createValidator } from "../../../validators/createTask";
+import { Status } from "../../../constants/Status";
 import { DefaultButton } from "../../Buttons/Default";
 import { InputTextControlled } from "../../Inputs/TextControlled";
+import { InputRadioControlled } from "../../Inputs/RadioControlled";
 import { Container } from "./styles";
 
 type FormData = {
@@ -30,6 +32,13 @@ export const FormCreate = () => {
         label="Name"
         control={control}
         error={errors.name?.message}
+      />
+      <InputRadioControlled
+        name="status"
+        label="Status"
+        control={control}
+        error={errors.name?.message}
+        options={Status}
       />
 
       <DefaultButton onPress={handleSubmit(onSubmit)}>Create</DefaultButton>

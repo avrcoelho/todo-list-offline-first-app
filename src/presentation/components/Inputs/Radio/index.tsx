@@ -19,9 +19,9 @@ export const InputRadio = ({
   const [selectedOption, setSelectedOption] = useState<string | number>();
 
   useEffect(() => {
-    setSelectedOption(value);
-    onChange(value);
-  }, [value]);
+    setSelectedOption(value || options[0].value);
+    onChange(value || options[0].value);
+  }, [value, options[0].value]);
 
   const onSelectOption = (option: string | number) => {
     setSelectedOption(option);
@@ -33,7 +33,7 @@ export const InputRadio = ({
       {!!label && <Title>{label}</Title>}
 
       {options.map((option) => (
-        <Field>
+        <Field key={String(option.value)}>
           <Buttom
             $isSelected={option.value === selectedOption}
             onPress={() => onSelectOption(option.value)}
