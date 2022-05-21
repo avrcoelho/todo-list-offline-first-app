@@ -6204,10 +6204,10 @@ react-native-gradle-plugin@^0.0.6:
   resolved "https://registry.yarnpkg.com/react-native-gradle-plugin/-/react-native-gradle-plugin-0.0.6.tgz#b61a9234ad2f61430937911003cddd7e15c72b45"
   integrity sha512-eIlgtsmDp1jLC24dRn43hB3kEcZVqx6DUQbR0N1ABXGnMEafm9I3V3dUUeD1vh+Dy5WqijSoEwLNUPLgu5zDMg==
 
-react-native-hook-notification@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-hook-notification/-/react-native-hook-notification-2.2.0.tgz#2363c8cdad7cf7e102864ac1e2bca68458a308ec"
-  integrity sha512-wea7j29IKa60s5t0Iv0r98ewVGnNN5CCDQel/bJkmo/tny60p8gYT70r6OwSCUQpQm9PNBcnIDcQHWQDsCkUjA==
+react-native-hook-notification@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-hook-notification/-/react-native-hook-notification-2.2.1.tgz#fc21ccf00041ffcbf6da6c0b4b75b6f08e40a762"
+  integrity sha512-IPDR3zImOiBWt7epuR7WjDdDdvDhxnUkrqkBRANpD8nx+NrepwAl1cmJRxRfr17BWBQTBzLfLIDjIymw/z54iA==
 
 react-native-reanimated@~2.8.0:
   version "2.8.0"
