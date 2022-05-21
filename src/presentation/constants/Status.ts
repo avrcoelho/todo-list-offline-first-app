@@ -1,10 +1,10 @@
 export const Status = [
   {
-    value: "solved",
-    label: "Solved",
+    value: "resolved",
+    label: "Resolved",
   },
   {
-    value: "not-solved",
-    label: "Not solved",
+    value: "unresolved",
+    label: "Unresolved",
   },
 ];

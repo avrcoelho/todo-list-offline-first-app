@@ -14,11 +14,11 @@ export const Home = (): JSX.Element => {
       <BottomSheetContainer
         ref={bottomSheetRef}
         index={0}
-        snapPoints={[1, 360]}
+        snapPoints={[1, 340]}
         onChange={onHandleSheetChanges}
         $isOpen={isOpen}
       >
-        <FormCreate />
+        <FormCreate bottomSheetRef={bottomSheetRef} />
       </BottomSheetContainer>
     </Container>
   );

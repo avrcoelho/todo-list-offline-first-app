@@ -10,7 +10,7 @@ export const DefaultButton = ({
   isLoading = false,
 }: ButtonProps): JSX.Element => {
   return (
-    <Container onPress={onPress} $isLoading={isLoading}>
+    <Container onPress={onPress} $isLoading={isLoading} enabled={!isLoading}>
       <Content accessibilityLabel="Create" accessibilityRole="button">
         {isLoading ? <Loader /> : <ButtonText>{children}</ButtonText>}
       </Content>

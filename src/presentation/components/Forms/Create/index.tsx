@@ -1,29 +1,22 @@
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import BottomSheet from "@gorhom/bottom-sheet";
 
-import { createValidator } from "../../../validators/createTask";
 import { Status } from "../../../constants/Status";
 import { DefaultButton } from "../../Buttons/Default";
 import { InputTextControlled } from "../../Inputs/TextControlled";
 import { InputRadioControlled } from "../../Inputs/RadioControlled";
+import { useController } from "./useController";
 import { Container, Title } from "./styles";
 
-type FormData = {
-  name: string;
+type FormCreateProps = {
+  bottomSheetRef: React.MutableRefObject<BottomSheet | null>;
 };
 
-export const FormCreate = () => {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({
-    resolver: yupResolver(createValidator),
+export const FormCreate = ({
+  bottomSheetRef,
+}: FormCreateProps): JSX.Element => {
+  const { control, errors, handleSubmit, mutate, isLoading } = useController({
+    bottomSheetRef,
   });
-
-  const onSubmit = (formData: FormData) => {
-    console.log(formData);
-  };
 
   return (
     <Container>
@@ -43,7 +36,9 @@ export const FormCreate = () => {
         options={Status}
       />
 
-      <DefaultButton onPress={handleSubmit(onSubmit)}>Create</DefaultButton>
+      <DefaultButton onPress={handleSubmit(mutate)} isLoading={isLoading}>
+        Create
+      </DefaultButton>
     </Container>
   );
 };

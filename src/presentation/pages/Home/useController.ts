@@ -11,7 +11,7 @@ export const useController = () => {
 
   const onHandleCreate = () => {
     setIsOpen(true);
-    bottomSheetRef.current.expand();
+    bottomSheetRef.current?.expand();
   };
 
   return {
