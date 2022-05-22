@@ -13,7 +13,7 @@ export const Home = (): JSX.Element => {
 
       <BottomSheetContainer
         ref={bottomSheetRef}
-        index={0}
+        index={1}
         snapPoints={[1, 340]}
         onChange={onHandleSheetChanges}
         $isOpen={isOpen}

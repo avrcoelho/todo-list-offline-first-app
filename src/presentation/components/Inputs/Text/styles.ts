@@ -1,3 +1,4 @@
+import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import styled, { css } from "styled-components/native";
 
 export const Container = styled.View`
@@ -18,7 +19,7 @@ const isFocusedStyle = css`
   border-bottom-color: #00ed64;
 `;
 
-export const Input = styled.TextInput<InputProps>`
+export const Input = styled(BottomSheetTextInput)<InputProps>`
   min-height: 40px;
   width: 100%;
   border-bottom-width: 2px;

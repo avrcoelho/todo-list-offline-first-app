@@ -20,6 +20,7 @@ export const useController = ({ bottomSheetRef }: UseControllerProps) => {
   const {
     control,
     handleSubmit,
+    reset: resetForm,
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(createValidator),
@@ -48,7 +49,8 @@ export const useController = ({ bottomSheetRef }: UseControllerProps) => {
     Keyboard.dismiss();
     bottomSheetRef.current?.close();
     reset();
-  }, [reset, notification, bottomSheetRef]);
+    resetForm();
+  }, [reset, notification, bottomSheetRef, resetForm]);
 
   useEffect(() => {
     if (isSuccess) {
