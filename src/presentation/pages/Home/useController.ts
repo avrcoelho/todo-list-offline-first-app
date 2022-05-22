@@ -1,5 +1,9 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import BottomSheet from "@gorhom/bottom-sheet";
+import { useNotification } from "react-native-hook-notification";
+
+import { makeGetTasks } from "../../../main/factories/usecases/getTasks";
+import { useQuery } from "../../hooks/useQuery";
 
 export const useController = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,10 +18,22 @@ export const useController = () => {
     bottomSheetRef.current?.expand();
   };
 
+  const { isError, isLoading, data } = useQuery(() => makeGetTasks());
+  const notification = useNotification();
+  useEffect(() => {
+    if (isError) {
+      notification.error({
+        text: "Getting tasks error!",
+      });
+    }
+  }, [isError, notification]);
+
   return {
     isOpen,
     bottomSheetRef,
     onHandleSheetChanges,
     onHandleCreate,
+    isLoading,
+    tasks: data,
   };
 };

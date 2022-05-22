@@ -1,13 +1,19 @@
 import styled from "styled-components/native";
 
 export const Container = styled.View`
-  min-height: 76px;
+  min-height: 60px;
   width: 100%;
 
-  border-bottom-width: 1px;
-  border-bottom-color: #ccc;
-
   padding: 0 10px;
+`;
+
+export const Content = styled.View`
+  flex: 1
+  justify-content: center;
+
+  border-bottom-width: 1px;
+  border-bottom-color: #eee;
+
 `;
 
 export const Name = styled.Text.attrs({
@@ -21,7 +27,7 @@ export const Name = styled.Text.attrs({
 `;
 
 export const Status = styled.Text`
-  color: #999;
+  color: #666;
   font-size: 14px;
   text-transform: capitalize;
 `;

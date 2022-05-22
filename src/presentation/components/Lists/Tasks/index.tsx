@@ -24,7 +24,7 @@ const Component = ({
     <Container
       keyExtractor={(task) => task._id}
       data={tasks}
-      renderItem={({ item }) => <TaskItem {...item} />}
+      renderItem={({ item: task }) => <TaskItem task={task} />}
       onEndReached={onEndReached}
       onEndReachedThreshold={0.1}
       onRefresh={onRefresh}

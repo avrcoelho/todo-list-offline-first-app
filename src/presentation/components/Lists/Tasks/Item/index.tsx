@@ -1,11 +1,17 @@
 import { Task } from "../../../../../entities/Task";
-import { Container, Name, Status } from "./styles";
+import { Container, Content, Name, Status } from "./styles";
 
-export const TaskItem = ({ name, status }: Task) => {
+type TaskItemProps = {
+  task: Task;
+};
+
+export const TaskItem = ({ task }: TaskItemProps) => {
   return (
     <Container>
-      <Name>{name}</Name>
-      <Status>{status}</Status>
+      <Content>
+        <Name>{task.name}</Name>
+        <Status>{task.status}</Status>
+      </Content>
     </Container>
   );
 };

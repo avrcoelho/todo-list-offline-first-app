@@ -1,7 +1,11 @@
+import { Task } from "../../../entities/Task";
 import { TaskRepository } from "../../../infrastructure/repository/TaskRepository";
 import { GetTasks } from "../../../usecases/GetTasks";
 
-export const makeGetTasks = () => {
+type Props = Omit<Task, "_id">;
+
+export const makeGetTasks = async (props?: Props) => {
   const taskRepository = new TaskRepository();
-  return new GetTasks(taskRepository);
+  const getTasks = new GetTasks(taskRepository);
+  return getTasks.execute.call(getTasks, props);
 };
