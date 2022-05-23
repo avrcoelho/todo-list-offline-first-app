@@ -2,7 +2,7 @@ import { ButtonCreate } from "../../components/Buttons/Create";
 import { FormCreate } from "../../components/Forms/Create";
 import { useController } from "./useController";
 import { ListTasks } from "../../components/Lists/Tasks";
-import { Container, BottomSheetContainer } from "./styles";
+import { Container, Header, Title, BottomSheetContainer } from "./styles";
 
 export const Home = (): JSX.Element => {
   const {
@@ -16,6 +16,10 @@ export const Home = (): JSX.Element => {
 
   return (
     <Container>
+      <Header>
+        <Title>Tasks</Title>
+      </Header>
+
       {!!tasks && (
         <ListTasks
           tasks={tasks}
