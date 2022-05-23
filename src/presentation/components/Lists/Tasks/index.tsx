@@ -2,6 +2,7 @@ import { memo } from "react";
 
 import { Task } from "../../../../entities/Task";
 import { LoaderFooterList } from "../../Loaders/FooterList";
+import { ListTaskHeader } from "./Header";
 import { TaskItem } from "./Item";
 import { Container } from "./styles";
 
@@ -32,6 +33,7 @@ const Component = ({
       keyboardDismissMode="on-drag"
       keyboardShouldPersistTaps="handled"
       viewabilityConfig={{ viewAreaCoveragePercentThreshold: 20 }}
+      ListHeaderComponent={ListTaskHeader}
       ListFooterComponent={<LoaderFooterList isLoading={isLoading} />}
     />
   );
