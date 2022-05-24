@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useTransition } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import {
@@ -21,9 +21,19 @@ export const InputSearch = ({
   amount,
   onChange,
 }: InputSearchProps): JSX.Element => {
-  const onClearSearch = (): void => {};
+  const [value, setValue] = useState("");
+  const [, startTransition] = useTransition();
 
-  const onChangeInputText = (text: string): void => {};
+  const onClearSearch = (): void => {
+    setValue("");
+  };
+
+  const onChangeInputText = (text: string): void => {
+    setValue(text);
+    startTransition(() => {
+      onChange(text);
+    });
+  };
 
   const amountIsNumber = typeof amount === "number";
 
@@ -33,26 +43,28 @@ export const InputSearch = ({
         <MaterialIcons name="search" color="#ccc" size={26} />
 
         <Input
-          value={""}
+          value={value}
           onChangeText={onChangeInputText}
           placeholder="Search..."
           placeholderTextColor="#b8b8b8"
           underlineColorAndroid="transparent"
         />
 
-        <>
-          {!isLoading ? (
-            <Loader size="small" color="#00ed64" testID="loader" />
-          ) : (
-            <ButtonClear
-              activeOpacity={0.6}
-              onPress={onClearSearch}
-              testID="btn-clear"
-            >
-              <MaterialIcons name="close" color="#fff" size={20} />
-            </ButtonClear>
-          )}
-        </>
+        {!!value && (
+          <>
+            {!isLoading ? (
+              <Loader size="small" color="#00ed64" testID="loader" />
+            ) : (
+              <ButtonClear
+                activeOpacity={0.6}
+                onPress={onClearSearch}
+                testID="btn-clear"
+              >
+                <MaterialIcons name="close" color="#fff" size={20} />
+              </ButtonClear>
+            )}
+          </>
+        )}
       </InputContainer>
       {amountIsNumber && <AmountLabel>{amount} tasks</AmountLabel>}
     </Container>
