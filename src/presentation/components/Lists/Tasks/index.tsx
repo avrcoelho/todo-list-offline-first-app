@@ -11,6 +11,7 @@ type ListTasksProps = {
   isRefreshing: boolean;
   isLoading: boolean;
   onRefresh(): void;
+  onSearch(value: string): void;
   onEndReached(): void;
 };
 
@@ -20,6 +21,7 @@ const Component = ({
   isRefreshing,
   onRefresh,
   onEndReached,
+  onSearch,
 }: ListTasksProps): JSX.Element => {
   return (
     <Container
@@ -33,7 +35,13 @@ const Component = ({
       keyboardDismissMode="on-drag"
       keyboardShouldPersistTaps="handled"
       viewabilityConfig={{ viewAreaCoveragePercentThreshold: 20 }}
-      ListHeaderComponent={ListTaskHeader}
+      ListHeaderComponent={
+        <ListTaskHeader
+          isLoading={isLoading}
+          onSearch={onSearch}
+          amount={tasks.length}
+        />
+      }
       ListFooterComponent={<LoaderFooterList isLoading={isLoading} />}
     />
   );

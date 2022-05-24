@@ -1,5 +1,17 @@
 import { InputSearch } from "../../../Inputs/Search";
 
-export const ListTaskHeader = (): JSX.Element => {
-  return <InputSearch isLoading onChange={() => {}} amount={7} />;
+type ListTaskHeaderProps = {
+  isLoading: boolean;
+  onSearch(value: string): void;
+  amount?: number;
+};
+
+export const ListTaskHeader = ({
+  isLoading,
+  onSearch,
+  amount,
+}: ListTaskHeaderProps): JSX.Element => {
+  return (
+    <InputSearch isLoading={isLoading} onChange={onSearch} amount={amount} />
+  );
 };
