@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { useNotification } from "react-native-hook-notification";
 
@@ -7,6 +7,7 @@ import { useQuery } from "../../hooks/useQuery";
 
 export const useController = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchValue, setSerachValue] = useState("");
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   const onHandleSheetChanges = (index: number) => {
@@ -18,7 +19,9 @@ export const useController = () => {
     bottomSheetRef.current?.expand();
   };
 
-  const { isError, isLoading, data } = useQuery(() => makeGetTasks());
+  const { isError, isLoading, data, refetch } = useQuery(() =>
+    makeGetTasks({ name: searchValue })
+  );
   const notification = useNotification();
   useEffect(() => {
     if (isError) {
@@ -28,6 +31,16 @@ export const useController = () => {
     }
   }, [isError, notification]);
 
+  const onSearch = useCallback(
+    (value: string) => {
+      setSerachValue(value);
+      setTimeout(() => {
+        refetch();
+      }, 500);
+    },
+    [refetch]
+  );
+
   return {
     isOpen,
     bottomSheetRef,
@@ -35,5 +48,6 @@ export const useController = () => {
     onHandleCreate,
     isLoading,
     tasks: data,
+    onSearch,
   };
 };

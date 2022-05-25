@@ -12,6 +12,7 @@ export const Home = (): JSX.Element => {
     onHandleSheetChanges,
     isLoading,
     tasks,
+    onSearch,
   } = useController();
 
   return (
@@ -21,13 +22,7 @@ export const Home = (): JSX.Element => {
       </Header>
 
       {!!tasks && (
-        <ListTasks
-          tasks={tasks}
-          isLoading={isLoading}
-          isRefreshing={false}
-          onEndReached={() => {}}
-          onRefresh={() => {}}
-        />
+        <ListTasks tasks={tasks} isLoading={isLoading} onSearch={onSearch} />
       )}
       <ButtonCreate onPress={onHandleCreate} />
 
