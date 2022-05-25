@@ -3,20 +3,18 @@ import { TasRepositoryPort } from "../../usecases/ports/TaskRepository";
 import { Store } from "../store";
 
 export class TaskRepository implements TasRepositoryPort {
-  async find(params = {}): Promise<Task[]> {
-    const [firstSearch, ...anotherSerach] = Object.entries(params).map(
-      ([key, value]) => `${key}='${value}'`
-    );
+  async find({ name }: Partial<Task>): Promise<Task[]> {
     const store = await Store.init();
     let tasks = store.objects<Task>("Task");
-    if (firstSearch) {
-      tasks = tasks.filtered(firstSearch, ...anotherSerach);
+    if (!!name) {
+      tasks = tasks.filtered("name = $0", name);
     }
+
     const parsedTasks = tasks.map((task) => task);
     return parsedTasks;
   }
 
-  async findById(_id: string): Promise<Task> {
+  async findById(_id: string): Promise<Task | undefined> {
     const store = await Store.init();
     const _idParsed = new Realm.BSON.ObjectId(_id);
     const tasks = store.objectForPrimaryKey<Task>("Task", _idParsed);
@@ -44,7 +42,7 @@ export class TaskRepository implements TasRepositoryPort {
     const store = await Store.init();
     store.write(() => {
       store.delete(task);
-      task = null;
+      task = undefined;
     });
   }
 }
