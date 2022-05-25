@@ -1,4 +1,4 @@
-import React, { useState, useTransition } from "react";
+import React, { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import {
@@ -9,6 +9,7 @@ import {
   Loader,
   AmountLabel,
 } from "./styles";
+import { useEffect } from "react";
 
 interface InputSearchProps {
   isLoading: boolean;
@@ -22,7 +23,6 @@ export const InputSearch = ({
   onChange,
 }: InputSearchProps): JSX.Element => {
   const [value, setValue] = useState("");
-  const [, startTransition] = useTransition();
 
   const onClearSearch = (): void => {
     setValue("");
@@ -30,10 +30,11 @@ export const InputSearch = ({
 
   const onChangeInputText = (text: string): void => {
     setValue(text);
-    startTransition(() => {
-      onChange(text);
-    });
   };
+
+  useEffect(() => {
+    onChange(value);
+  }, [value]);
 
   const amountIsNumber = typeof amount === "number";
 
@@ -52,7 +53,7 @@ export const InputSearch = ({
 
         {!!value && (
           <>
-            {!isLoading ? (
+            {isLoading ? (
               <Loader size="small" color="#00ed64" testID="loader" />
             ) : (
               <ButtonClear
