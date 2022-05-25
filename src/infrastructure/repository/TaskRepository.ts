@@ -3,11 +3,15 @@ import { TasRepositoryPort } from "../../usecases/ports/TaskRepository";
 import { Store } from "../store";
 
 export class TaskRepository implements TasRepositoryPort {
-  async find({ name }: Partial<Task>): Promise<Task[]> {
+  async find(params = {}): Promise<Task[]> {
+    const firstSearch = Object.entries(params)
+      .filter(([, value]) => !!value)
+      .map(([key, value]) => `${key} = '${value}'`);
+
     const store = await Store.init();
     let tasks = store.objects<Task>("Task");
-    if (!!name) {
-      tasks = tasks.filtered("name = $0", name);
+    if (firstSearch.length) {
+      tasks = tasks.filtered(firstSearch.join(" || "));
     }
 
     const parsedTasks = tasks.map((task) => task);
