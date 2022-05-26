@@ -6,7 +6,9 @@ export class TaskRepository implements TasRepositoryPort {
   async find(params = {}): Promise<Task[]> {
     const firstSearch = Object.entries(params)
       .filter(([, value]) => !!value)
-      .map(([key, value]) => `${key} =[c] '${value}'`);
+      .map(([key, value]) =>
+        key === "name" ? `${key} CONTAINS[c] '${value}'` : `${key} = '${value}'`
+      );
 
     const store = await Store.init();
     let tasks = store.objects<Task>("Task");
