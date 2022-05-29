@@ -1,11 +1,14 @@
 import styled from "styled-components/native";
+import { Swipeable } from "react-native-gesture-handler";
 
-export const Container = styled.View`
-  min-height: 60px;
-  width: 100%;
-
-  padding: 0 10px;
-`;
+export const Container = styled(Swipeable).attrs({
+  childrenContainerStyle: {
+    minHeight: 60,
+    width: "100%",
+    paddingHorizontal: 10,
+    backgroundColor: "#fff",
+  },
+})``;
 
 export const Content = styled.View`
   flex: 1
