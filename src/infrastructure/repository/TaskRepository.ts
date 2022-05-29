@@ -15,9 +15,7 @@ export class TaskRepository implements TasRepositoryPort {
     if (firstSearch.length) {
       tasks = tasks.filtered(firstSearch.join(" || "));
     }
-
-    const parsedTasks = tasks.map((task) => task);
-    return parsedTasks;
+    return tasks;
   }
 
   async findById(_id: string): Promise<Task | undefined> {
@@ -45,7 +43,7 @@ export class TaskRepository implements TasRepositoryPort {
   async deleteById(id: string): Promise<void> {
     let task = await this.findById(id);
     const store = await Store.init();
-    store.write(() => {
+    store.write(async () => {
       store.delete(task);
       task = undefined;
     });

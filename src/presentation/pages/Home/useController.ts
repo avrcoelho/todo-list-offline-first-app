@@ -4,10 +4,12 @@ import { useNotification } from "react-native-hook-notification";
 
 import { makeGetTasks } from "../../../main/factories/usecases/getTasks";
 import { useQuery } from "../../hooks/useQuery";
+import { Task } from "../../../entities/Task";
 
 export const useController = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchValue, setSerachValue] = useState("");
+  const [tasks, setTasks] = useState<Task[]>([]);
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   const onHandleSheetChanges = (index: number) => {
@@ -19,7 +21,7 @@ export const useController = () => {
     bottomSheetRef.current?.expand();
   };
 
-  const { isError, isLoading, data, refetch } = useQuery(() =>
+  const { isError, isSuccess, isLoading, data, refetch } = useQuery(() =>
     makeGetTasks({ name: searchValue })
   );
   const notification = useNotification();
@@ -30,6 +32,14 @@ export const useController = () => {
       });
     }
   }, [isError, notification]);
+
+  useEffect(() => {
+    if (isSuccess && data) {
+      (data as any).addListener(() => {
+        setTasks([...data]);
+      });
+    }
+  }, [isSuccess, data]);
 
   const onSearch = useCallback(
     (value: string) => {
@@ -47,7 +57,7 @@ export const useController = () => {
     onHandleSheetChanges,
     onHandleCreate,
     isLoading,
-    tasks: data,
+    tasks,
     onSearch,
   };
 };

@@ -6,7 +6,6 @@ import { useMutation } from "../../../../hooks/useMutation";
 
 export const useController = () => {
   const { isError, isSuccess, mutate, reset } = useMutation(makeDeleteTask);
-  const [isDelected, setIsDelected] = useState(false);
   const notification = useNotification();
 
   const onDelete = useCallback(
@@ -20,7 +19,6 @@ export const useController = () => {
     notification.error({
       text: "Error deleting task",
     });
-    setIsDelected(false);
     reset();
   }, [reset, notification]);
 
@@ -34,7 +32,6 @@ export const useController = () => {
     notification.success({
       text: "Task deleted!",
     });
-    setIsDelected(true);
     reset();
   }, [reset, notification]);
 
@@ -46,6 +43,5 @@ export const useController = () => {
 
   return {
     onDelete,
-    isDelected,
   };
 };

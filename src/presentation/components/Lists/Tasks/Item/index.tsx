@@ -9,9 +9,9 @@ type TaskItemProps = {
 };
 
 export const TaskItem = ({ task }: TaskItemProps) => {
-  const { onDelete, isDelected } = useController();
+  const { onDelete } = useController();
 
-  if (isDelected) {
+  if (!task.isValid()) {
     return null;
   }
 
