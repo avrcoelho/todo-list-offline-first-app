@@ -1,7 +1,8 @@
 import { TaskRepository } from "../../../infrastructure/repository/TaskRepository";
 import { DeleteTask } from "../../../usecases/DeleteTask";
 
-export const makeDeleteTask = () => {
+export const makeDeleteTask = async (id: string) => {
   const taskRepository = new TaskRepository();
-  return new DeleteTask(taskRepository);
+  const deleteTask = new DeleteTask(taskRepository);
+  await deleteTask.execute.call(deleteTask, id);
 };
