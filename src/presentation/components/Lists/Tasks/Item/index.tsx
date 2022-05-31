@@ -1,4 +1,3 @@
-import { memo } from "react";
 import { Task } from "../../../../../entities/Task";
 import { Options } from "../Options";
 import { Container, Content, Name, Status } from "./styles";
@@ -9,7 +8,7 @@ type TaskItemProps = {
 };
 
 export const TaskItem = ({ task }: TaskItemProps) => {
-  const { onDelete } = useController();
+  const { onDelete } = useController(task);
 
   return (
     <Container

@@ -1,13 +1,16 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { useNotification } from "react-native-hook-notification";
 
+import { Task } from "../../../../../entities/Task";
 import { makeDeleteTask } from "../../../../../main/factories/usecases/deleteTask";
 import { useMutation } from "../../../../hooks/useMutation";
+import { useTaskStore } from "../../../../store/task";
 
-export const useController = () => {
+export const useController = (task: Task) => {
   const { isError, isSuccess, mutate, reset } = useMutation(makeDeleteTask);
   const notification = useNotification();
 
+  const onRemoveFromStore = useTaskStore((state) => state.remove);
   const onDelete = useCallback(
     (id: string) => {
       mutate(id);
@@ -33,7 +36,8 @@ export const useController = () => {
       text: "Task deleted!",
     });
     reset();
-  }, [reset, notification]);
+    onRemoveFromStore(task._id);
+  }, [reset, notification, task._id]);
 
   useEffect(() => {
     if (isSuccess) {
