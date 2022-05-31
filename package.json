@@ -25,7 +25,8 @@
     "react-native-web": "0.17.7",
     "realm": "^10.17.0",
     "styled-components": "^5.3.5",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "zustand": "^4.0.0-rc.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
