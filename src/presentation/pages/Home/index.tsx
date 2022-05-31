@@ -1,7 +1,7 @@
 import { ButtonCreate } from "../../components/Buttons/Create";
 import { FormCreate } from "../../components/Forms/Create";
-import { useController } from "./useController";
 import { ListTasks } from "../../components/Lists/Tasks";
+import { useController } from "./useController";
 import { Container, Header, Title, BottomSheetContainer } from "./styles";
 
 export const Home = (): JSX.Element => {

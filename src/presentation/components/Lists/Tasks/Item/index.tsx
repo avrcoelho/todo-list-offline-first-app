@@ -11,10 +11,6 @@ type TaskItemProps = {
 export const TaskItem = ({ task }: TaskItemProps) => {
   const { onDelete } = useController();
 
-  if (!task.isValid()) {
-    return null;
-  }
-
   return (
     <Container
       renderRightActions={Options}

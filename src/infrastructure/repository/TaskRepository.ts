@@ -15,7 +15,11 @@ export class TaskRepository implements TasRepositoryPort {
     if (firstSearch.length) {
       tasks = tasks.filtered(firstSearch.join(" || "));
     }
-    return tasks;
+    return tasks.map((task) => ({
+      _id: task._id,
+      name: task.name,
+      status: task.status,
+    }));
   }
 
   async findById(_id: string): Promise<Task | undefined> {
