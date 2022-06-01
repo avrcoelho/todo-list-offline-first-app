@@ -12,7 +12,9 @@ export const Title = styled.Text`
   margin-bottom: 12px;
 `;
 
-export const Field = styled.View`
+export const Field = styled.TouchableOpacity`
+  align-self: flex-start;
+  height: 20px;
   flex-direction: row;
   align-items: center;
   margin-bottom: 10px;
@@ -27,7 +29,7 @@ const selectedStyle = css`
   background-color: #00ed64;
 `;
 
-export const Buttom = styled.TouchableOpacity<ButtomProps>`
+export const Circle = styled.View<ButtomProps>`
   height: 20px;
   width: 20px;
   border-radius: 10px;

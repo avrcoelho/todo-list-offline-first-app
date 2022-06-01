@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { InputRadioOption } from "../../../types/InputRadioOption";
-import { Container, Title, Field, Label, Buttom } from "./styles";
+import { Container, Title, Field, Label, Circle } from "./styles";
 
 type InputRadioProps = {
   options: InputRadioOption[];
@@ -33,11 +33,12 @@ export const InputRadio = ({
       {!!label && <Title>{label}</Title>}
 
       {options.map((option) => (
-        <Field key={String(option.value)}>
-          <Buttom
-            $isSelected={option.value === selectedOption}
-            onPress={() => onSelectOption(option.value)}
-          />
+        <Field
+          key={String(option.value)}
+          onPress={() => onSelectOption(option.value)}
+          activeOpacity={1}
+        >
+          <Circle $isSelected={option.value === selectedOption} />
           <Label>{option.label}</Label>
         </Field>
       ))}
