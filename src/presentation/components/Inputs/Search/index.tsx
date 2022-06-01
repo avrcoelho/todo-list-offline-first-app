@@ -67,7 +67,11 @@ export const InputSearch = ({
           </>
         )}
       </InputContainer>
-      {amountIsNumber && <AmountLabel>{amount} tasks</AmountLabel>}
+      {amountIsNumber && (
+        <AmountLabel>
+          {amount} task{amount !== 1 && "s"}
+        </AmountLabel>
+      )}
     </Container>
   );
 };
