@@ -14,7 +14,7 @@ type FormCreateProps = {
 export const FormCreate = ({
   bottomSheetRef,
 }: FormCreateProps): JSX.Element => {
-  const { control, errors, handleSubmit, mutate, isLoading } = useController({
+  const { control, errors, handleSubmit, onSumit, isLoading } = useController({
     bottomSheetRef,
   });
 
@@ -36,7 +36,7 @@ export const FormCreate = ({
         options={Status}
       />
 
-      <DefaultButton onPress={handleSubmit(mutate)} isLoading={isLoading}>
+      <DefaultButton onPress={handleSubmit(onSumit)} isLoading={isLoading}>
         Create
       </DefaultButton>
     </Container>
