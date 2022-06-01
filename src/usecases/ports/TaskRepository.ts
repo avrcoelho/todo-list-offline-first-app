@@ -3,7 +3,7 @@ import { Task } from "../../entities/Task";
 export interface TasRepositoryPort {
   find(name?: string): Promise<Task[]>;
   findById(id: string): Promise<Task | undefined>;
-  create(task: Omit<Task, "_id">): Promise<void>;
+  create(task: Omit<Task, "_id">): Promise<Task>;
   update(task: Task): Promise<void>;
   deleteById(id: string): Promise<void>;
 }
