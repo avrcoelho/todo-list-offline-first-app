@@ -5,6 +5,6 @@ export class CreateTask {
   constructor(private readonly taskRepository: TaskRepository) {}
 
   async execute(task: Omit<Task, "_id">) {
-    await this.taskRepository.create(task);
+    return this.taskRepository.create(task);
   }
 }

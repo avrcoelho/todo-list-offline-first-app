@@ -7,5 +7,5 @@ type Props = Omit<Task, "_id">;
 export const makeCreateTask = async (props: Props) => {
   const taskRepository = new TaskRepository();
   const createTask = new CreateTask(taskRepository);
-  await createTask.execute.call(createTask, props);
+  return createTask.execute.call(createTask, props);
 };
