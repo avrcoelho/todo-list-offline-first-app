@@ -8,7 +8,7 @@ type TaskItemProps = {
 };
 
 export const TaskItem = ({ task }: TaskItemProps) => {
-  const { onDelete } = useController(task);
+  const { onDelete, onOpenUpdate } = useController(task);
 
   return (
     <Container
@@ -19,7 +19,7 @@ export const TaskItem = ({ task }: TaskItemProps) => {
       rightThreshold={70}
       onSwipeableOpen={() => onDelete(task._id)}
     >
-      <Content>
+      <Content onPress={() => onOpenUpdate(task._id)}>
         <Name>{task.name}</Name>
         <Status>{task.status}</Status>
       </Content>
