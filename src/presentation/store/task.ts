@@ -1,3 +1,4 @@
+import { BottomSheetMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
 import create from "zustand";
 
 import { Task } from "../../entities/Task";
@@ -5,6 +6,7 @@ import { Task } from "../../entities/Task";
 type UseTaskStore = {
   tasks: Task[];
   taskIdToUpdate: null | string;
+  bottomSheetControls: null | BottomSheetMethods;
   init(tasks: Task[]): void;
   add(task: Task): void;
   update(task: Task): void;
@@ -16,6 +18,7 @@ type UseTaskStore = {
 export const useTaskStore = create<UseTaskStore>((set) => ({
   tasks: [],
   taskIdToUpdate: null,
+  bottomSheetControls: null,
   init: (tasks) => set({ tasks }),
   add: (task) => set((state) => ({ ...state, tasks: [...state.tasks, task] })),
   update: (task) =>
@@ -37,5 +40,10 @@ export const useTaskStore = create<UseTaskStore>((set) => ({
     set((state) => ({
       ...state,
       taskIdToUpdate: null,
+    })),
+  setBottomSheetControls: (controls: BottomSheetMethods) =>
+    set((state) => ({
+      ...state,
+      bottomSheetControls: controls,
     })),
 }));

@@ -70,5 +70,7 @@ export const useController = ({ bottomSheetRef }: UseControllerProps) => {
     [mutate, addTaskToStore]
   );
 
-  return { control, handleSubmit, onSumit, errors, isLoading };
+  const taskIdToUpdate = useTaskStore((state) => state.taskIdToUpdate);
+
+  return { control, handleSubmit, onSumit, errors, isLoading, taskIdToUpdate };
 };

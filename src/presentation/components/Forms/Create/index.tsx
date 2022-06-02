@@ -14,13 +14,14 @@ type FormCreateProps = {
 export const FormCreate = ({
   bottomSheetRef,
 }: FormCreateProps): JSX.Element => {
-  const { control, errors, handleSubmit, onSumit, isLoading } = useController({
-    bottomSheetRef,
-  });
+  const { control, errors, handleSubmit, onSumit, isLoading, taskIdToUpdate } =
+    useController({
+      bottomSheetRef,
+    });
 
   return (
     <Container>
-      <Title>Create task</Title>
+      <Title>{taskIdToUpdate ? "Update" : "Create"} task</Title>
 
       <InputTextControlled
         name="name"
