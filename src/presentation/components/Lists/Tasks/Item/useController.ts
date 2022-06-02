@@ -48,7 +48,6 @@ export const useController = (task: Task) => {
   const onAddTaskIdToUpdate = useTaskStore((state) => state.addTaskIdToUpdate);
   const onOpenUpdate = useCallback(
     (id: string) => {
-      console.log(id);
       onAddTaskIdToUpdate(id);
     },
     [onAddTaskIdToUpdate]
