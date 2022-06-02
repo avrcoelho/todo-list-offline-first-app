@@ -3,7 +3,7 @@ import create from "zustand";
 
 import { Task } from "../../entities/Task";
 
-type UseTaskStore = {
+type UseStore = {
   tasks: Task[];
   taskIdToUpdate: null | string;
   bottomSheetControls: null | BottomSheetMethods;
@@ -13,9 +13,10 @@ type UseTaskStore = {
   remove(_id: string): void;
   addTaskIdToUpdate(_id: string): void;
   removeTaskIdToUpdate(): void;
+  setBottomSheetControls(controls: BottomSheetMethods): void;
 };
 
-export const useTaskStore = create<UseTaskStore>((set) => ({
+export const useStore = create<UseStore>((set) => ({
   tasks: [],
   taskIdToUpdate: null,
   bottomSheetControls: null,

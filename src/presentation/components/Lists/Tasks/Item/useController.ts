@@ -4,13 +4,13 @@ import { useNotification } from "react-native-hook-notification";
 import { Task } from "../../../../../entities/Task";
 import { makeDeleteTask } from "../../../../../main/factories/usecases/deleteTask";
 import { useMutation } from "../../../../hooks/useMutation";
-import { useTaskStore } from "../../../../store/task";
+import { useStore } from "../../../../store/useStore";
 
 export const useController = (task: Task) => {
   const { isError, isSuccess, mutate, reset } = useMutation(makeDeleteTask);
   const notification = useNotification();
 
-  const onRemoveFromStore = useTaskStore((state) => state.remove);
+  const onRemoveFromStore = useStore((state) => state.remove);
   const onDelete = useCallback(
     (id: string) => {
       mutate(id);
@@ -45,7 +45,7 @@ export const useController = (task: Task) => {
     }
   }, [isSuccess, onSuccess]);
 
-  const onAddTaskIdToUpdate = useTaskStore((state) => state.addTaskIdToUpdate);
+  const onAddTaskIdToUpdate = useStore((state) => state.addTaskIdToUpdate);
   const onOpenUpdate = useCallback(
     (id: string) => {
       onAddTaskIdToUpdate(id);

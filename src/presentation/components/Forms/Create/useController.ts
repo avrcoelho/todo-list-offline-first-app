@@ -9,7 +9,7 @@ import { Task } from "../../../../entities/Task";
 import { makeCreateTask } from "../../../../main/factories/usecases/createTask";
 import { createValidator } from "../../../validators/createTask";
 import { useMutation } from "../../../hooks/useMutation";
-import { useTaskStore } from "../../../store/task";
+import { useStore } from "../../../store/useStore";
 
 type FormData = Omit<Task, "_id">;
 
@@ -59,7 +59,7 @@ export const useController = ({ bottomSheetRef }: UseControllerProps) => {
     }
   }, [isSuccess, onSuccess]);
 
-  const addTaskToStore = useTaskStore((state) => state.add);
+  const addTaskToStore = useStore((state) => state.add);
   const onSumit = useCallback(
     async (formData: FormData) => {
       const taskCreated = await mutate(formData);
@@ -70,7 +70,7 @@ export const useController = ({ bottomSheetRef }: UseControllerProps) => {
     [mutate, addTaskToStore]
   );
 
-  const taskIdToUpdate = useTaskStore((state) => state.taskIdToUpdate);
+  const taskIdToUpdate = useStore((state) => state.taskIdToUpdate);
 
   return { control, handleSubmit, onSumit, errors, isLoading, taskIdToUpdate };
 };
