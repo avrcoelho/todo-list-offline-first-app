@@ -46,11 +46,13 @@ export const useController = (task: Task) => {
   }, [isSuccess, onSuccess]);
 
   const onAddTaskIdToUpdate = useStore((state) => state.addTaskIdToUpdate);
+  const bottomsheetControls = useStore((state) => state.bottomSheetControls);
   const onOpenUpdate = useCallback(
     (id: string) => {
       onAddTaskIdToUpdate(id);
+      bottomsheetControls?.expand();
     },
-    [onAddTaskIdToUpdate]
+    [onAddTaskIdToUpdate, bottomsheetControls]
   );
 
   return {

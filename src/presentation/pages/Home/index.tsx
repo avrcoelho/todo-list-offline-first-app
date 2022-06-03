@@ -7,7 +7,7 @@ import { Container, Header, Title, BottomSheetContainer } from "./styles";
 export const Home = (): JSX.Element => {
   const {
     isOpen,
-    bottomSheetRef,
+    onSetBottomSheetRef,
     onHandleCreate,
     onHandleSheetChanges,
     isLoading,
@@ -27,13 +27,13 @@ export const Home = (): JSX.Element => {
       <ButtonCreate onPress={onHandleCreate} />
 
       <BottomSheetContainer
-        ref={bottomSheetRef}
+        ref={onSetBottomSheetRef}
         index={0}
         snapPoints={[1, 340]}
         onChange={onHandleSheetChanges}
         $isOpen={isOpen}
       >
-        <FormCreate bottomSheetRef={bottomSheetRef} />
+        <FormCreate />
       </BottomSheetContainer>
     </Container>
   );

@@ -7,17 +7,9 @@ import { InputRadioControlled } from "../../Inputs/RadioControlled";
 import { useController } from "./useController";
 import { Container, Title } from "./styles";
 
-type FormCreateProps = {
-  bottomSheetRef: React.MutableRefObject<BottomSheet | null>;
-};
-
-export const FormCreate = ({
-  bottomSheetRef,
-}: FormCreateProps): JSX.Element => {
+export const FormCreate = (): JSX.Element => {
   const { control, errors, handleSubmit, onSumit, isLoading, taskIdToUpdate } =
-    useController({
-      bottomSheetRef,
-    });
+    useController();
 
   return (
     <Container>
@@ -38,7 +30,7 @@ export const FormCreate = ({
       />
 
       <DefaultButton onPress={handleSubmit(onSumit)} isLoading={isLoading}>
-        Create
+        {taskIdToUpdate ? "Update" : "Create"}
       </DefaultButton>
     </Container>
   );

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import BottomSheet from "@gorhom/bottom-sheet";
+import { BottomSheetMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
 import { useNotification } from "react-native-hook-notification";
 
 import { makeGetTasks } from "../../../main/factories/usecases/getTasks";
@@ -9,17 +9,32 @@ import { useStore } from "../../store/useStore";
 export const useController = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchValue, setSerachValue] = useState("");
-  const bottomSheetRef = useRef<BottomSheet>(null);
+  const bottomSheetRef = useRef<BottomSheetMethods>();
   const tasks = useStore((state) => state.tasks);
 
-  const onHandleSheetChanges = (index: number) => {
-    setIsOpen(!!index);
-  };
+  const removeTaskIdToUpdate = useStore((state) => state.removeTaskIdToUpdate);
+  const onHandleSheetChanges = useCallback(
+    (index: number) => {
+      const isOpened = !!index;
+      setIsOpen(isOpened);
+      if (!isOpened) {
+        removeTaskIdToUpdate();
+      }
+    },
+    [removeTaskIdToUpdate]
+  );
 
-  const onHandleCreate = () => {
+  const taskIdToUpdate = useStore((state) => state.taskIdToUpdate);
+  useEffect(() => {
+    if (taskIdToUpdate) {
+      setIsOpen(true);
+    }
+  }, [taskIdToUpdate]);
+
+  const onHandleCreate = useCallback(() => {
     setIsOpen(true);
     bottomSheetRef.current?.expand();
-  };
+  }, []);
 
   const { isError, isSuccess, isLoading, data, refetch } = useQuery(() =>
     makeGetTasks({ name: searchValue })
@@ -51,13 +66,17 @@ export const useController = () => {
     [refetch]
   );
 
-  const tasks = useStore((state) => state.se);
-
-  useEffect(() => {}, []);
+  const setBottomSheetControls = useStore(
+    (state) => state.setBottomSheetControls
+  );
+  const onSetBottomSheetRef = useCallback((ref: BottomSheetMethods) => {
+    bottomSheetRef.current = ref;
+    setBottomSheetControls(ref);
+  }, []);
 
   return {
     isOpen,
-    bottomSheetRef,
+    onSetBottomSheetRef,
     onHandleSheetChanges,
     onHandleCreate,
     isLoading,

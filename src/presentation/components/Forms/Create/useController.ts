@@ -13,11 +13,7 @@ import { useStore } from "../../../store/useStore";
 
 type FormData = Omit<Task, "_id">;
 
-type UseControllerProps = {
-  bottomSheetRef: React.MutableRefObject<BottomSheet | null>;
-};
-
-export const useController = ({ bottomSheetRef }: UseControllerProps) => {
+export const useController = () => {
   const {
     control,
     handleSubmit,
@@ -43,15 +39,16 @@ export const useController = ({ bottomSheetRef }: UseControllerProps) => {
     }
   }, [isError, onError]);
 
+  const bottomsheetControls = useStore((state) => state.bottomSheetControls);
   const onSuccess = useCallback(() => {
     notification.success({
       text: "Task created!",
     });
     Keyboard.dismiss();
-    bottomSheetRef.current?.close();
+    bottomsheetControls?.close();
     reset();
     resetForm();
-  }, [reset, notification, bottomSheetRef, resetForm]);
+  }, [reset, notification, bottomsheetControls, resetForm]);
 
   useEffect(() => {
     if (isSuccess) {
