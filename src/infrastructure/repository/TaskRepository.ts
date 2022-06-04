@@ -37,12 +37,13 @@ export class TaskRepository implements TasRepositoryPort {
     return { _id: String(_id), ...task };
   }
 
-  async update({ _id, ...restTaskToUpdate }: Task): Promise<void> {
+  async update({ _id, ...restTaskToUpdate }: Task): Promise<Task> {
     const task = await this.findById(_id);
     const store = await Store.init();
     store.write(() => {
       Object.assign(task, restTaskToUpdate);
     });
+    return { _id, ...restTaskToUpdate };
   }
 
   async deleteById(id: string): Promise<void> {
