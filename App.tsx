@@ -1,3 +1,4 @@
+import "./wdyr";
 import "react-native-gesture-handler";
 import "react-native-get-random-values";
 import { SafeAreaView } from "react-native";

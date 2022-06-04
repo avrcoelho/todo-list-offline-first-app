@@ -63,7 +63,8 @@ export const useMutation = <TData = unknown, TVariables = void>(
         dispatch({ type: "loading" });
         responseData = await handlerRef.current(variables);
         dispatch({ type: "success" });
-      } catch {
+      } catch (e) {
+        console.log(e);
         dispatch({ type: "error" });
       } finally {
         dispatch({ type: "finally" });
