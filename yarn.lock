@@ -6204,10 +6204,10 @@ react-native-gradle-plugin@^0.0.6:
   resolved "https://registry.yarnpkg.com/react-native-gradle-plugin/-/react-native-gradle-plugin-0.0.6.tgz#b61a9234ad2f61430937911003cddd7e15c72b45"
   integrity sha512-eIlgtsmDp1jLC24dRn43hB3kEcZVqx6DUQbR0N1ABXGnMEafm9I3V3dUUeD1vh+Dy5WqijSoEwLNUPLgu5zDMg==
 
-react-native-hook-notification@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/react-native-hook-notification/-/react-native-hook-notification-2.2.1.tgz#fc21ccf00041ffcbf6da6c0b4b75b6f08e40a762"
-  integrity sha512-IPDR3zImOiBWt7epuR7WjDdDdvDhxnUkrqkBRANpD8nx+NrepwAl1cmJRxRfr17BWBQTBzLfLIDjIymw/z54iA==
+react-native-hook-notification@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/react-native-hook-notification/-/react-native-hook-notification-2.2.2.tgz#f21e94da67f9dd3d87a0dbcb956569e5ab56cc04"
+  integrity sha512-/IyO8ZzS3AIG+JkmEPrs7jpxOP3+oYbP7drLAh0sen8/26ZcltjcELvYZXXQpbOVNZFWIIwp08HEuZ2t/bn0sQ==
 
 react-native-iphone-x-helper@^1.3.1:
   version "1.3.1"
