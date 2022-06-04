@@ -71,7 +71,7 @@ export const useController = () => {
   };
 
   const onSumit = async (formData: FormData) => {
-    const taskData = await mutate(formData as Task);
+    const taskData = await mutate({ _id: taskIdToUpdate, ...formData } as Task);
     if (taskData) {
       updateStore(taskData);
     }
