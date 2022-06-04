@@ -31,10 +31,10 @@ export const useController = () => {
     }
   }, [taskIdToUpdate]);
 
-  const onHandleCreate = useCallback(() => {
+  const onHandleCreate = () => {
     setIsOpen(true);
     bottomSheetRef.current?.expand();
-  }, []);
+  };
 
   const { isError, isSuccess, isLoading, data, refetch } = useQuery(() =>
     makeGetTasks({ name: searchValue })

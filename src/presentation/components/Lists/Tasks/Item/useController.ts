@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { useNotification } from "react-native-hook-notification";
 
 import { Task } from "../../../../../entities/Task";
@@ -11,19 +11,16 @@ export const useController = (task: Task) => {
   const notification = useNotification();
 
   const onRemoveFromStore = useStore((state) => state.remove);
-  const onDelete = useCallback(
-    (id: string) => {
-      mutate(id);
-    },
-    [mutate]
-  );
+  const onDelete = (id: string) => {
+    mutate(id);
+  };
 
-  const onError = useCallback(() => {
+  const onError = () => {
     notification.error({
       text: "Error deleting task",
     });
     reset();
-  }, [reset, notification]);
+  };
 
   useEffect(() => {
     if (isError) {
@@ -31,13 +28,13 @@ export const useController = (task: Task) => {
     }
   }, [isError, onError]);
 
-  const onSuccess = useCallback(() => {
+  const onSuccess = () => {
     notification.success({
       text: "Task deleted!",
     });
     reset();
     onRemoveFromStore(task._id);
-  }, [reset, notification, task._id]);
+  };
 
   useEffect(() => {
     if (isSuccess) {
@@ -47,13 +44,10 @@ export const useController = (task: Task) => {
 
   const onAddTaskIdToUpdate = useStore((state) => state.addTaskIdToUpdate);
   const bottomsheetControls = useStore((state) => state.bottomSheetControls);
-  const onOpenUpdate = useCallback(
-    (id: string) => {
-      onAddTaskIdToUpdate(id);
-      bottomsheetControls?.expand();
-    },
-    [onAddTaskIdToUpdate, bottomsheetControls]
-  );
+  const onOpenUpdate = (id: string) => {
+    onAddTaskIdToUpdate(id);
+    bottomsheetControls?.expand();
+  };
 
   return {
     onDelete,

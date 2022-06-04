@@ -5,6 +5,6 @@ export class UpdateTask {
   constructor(private readonly taskRepository: TaskRepository) {}
 
   async execute(task: Task) {
-    await this.taskRepository.update(task);
+    return this.taskRepository.update(task);
   }
 }

@@ -1,15 +1,15 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { Keyboard } from "react-native";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNotification } from "react-native-hook-notification";
-import BottomSheet from "@gorhom/bottom-sheet";
 
 import { Task } from "../../../../entities/Task";
 import { makeCreateTask } from "../../../../main/factories/usecases/createTask";
 import { createValidator } from "../../../validators/createTask";
 import { useMutation } from "../../../hooks/useMutation";
 import { useStore } from "../../../store/useStore";
+import { makeUpdateTask } from "../../../../main/factories/usecases/updateTask";
 
 type FormData = Omit<Task, "_id">;
 
@@ -22,16 +22,19 @@ export const useController = () => {
   } = useForm<FormData>({
     resolver: yupResolver(createValidator),
   });
-  const { isError, isLoading, isSuccess, mutate, reset } =
-    useMutation(makeCreateTask);
+
+  const taskIdToUpdate = useStore((state) => state.taskIdToUpdate);
+  const { isError, isLoading, isSuccess, mutate, reset } = useMutation(
+    taskIdToUpdate ? makeUpdateTask : makeCreateTask
+  );
   const notification = useNotification();
 
-  const onError = useCallback(() => {
+  const onError = () => {
     notification.error({
-      text: "Error creating task",
+      text: `Error ${taskIdToUpdate ? "updating" : "creating"} task!`,
     });
     reset();
-  }, [reset, notification]);
+  };
 
   useEffect(() => {
     if (isError) {
@@ -40,15 +43,15 @@ export const useController = () => {
   }, [isError, onError]);
 
   const bottomsheetControls = useStore((state) => state.bottomSheetControls);
-  const onSuccess = useCallback(() => {
+  const onSuccess = () => {
     notification.success({
-      text: "Task created!",
+      text: `Task ${taskIdToUpdate ? "updated" : "created"}!`,
     });
     Keyboard.dismiss();
     bottomsheetControls?.close();
     reset();
     resetForm();
-  }, [reset, notification, bottomsheetControls, resetForm]);
+  };
 
   useEffect(() => {
     if (isSuccess) {
@@ -57,17 +60,22 @@ export const useController = () => {
   }, [isSuccess, onSuccess]);
 
   const addTaskToStore = useStore((state) => state.add);
-  const onSumit = useCallback(
-    async (formData: FormData) => {
-      const taskCreated = await mutate(formData);
-      if (taskCreated) {
-        addTaskToStore(taskCreated);
-      }
-    },
-    [mutate, addTaskToStore]
-  );
+  const updateTaskToStore = useStore((state) => state.update);
 
-  const taskIdToUpdate = useStore((state) => state.taskIdToUpdate);
+  const updateStore = (taskData: Task) => {
+    if (taskIdToUpdate) {
+      updateTaskToStore(taskData);
+    } else {
+      addTaskToStore(taskData);
+    }
+  };
+
+  const onSumit = async (formData: FormData) => {
+    const taskData = await mutate(formData as Task);
+    if (taskData) {
+      updateStore(taskData);
+    }
+  };
 
   return { control, handleSubmit, onSumit, errors, isLoading, taskIdToUpdate };
 };
