@@ -12,7 +12,7 @@ type ListTasksProps = {
   onSearch(value: string): void;
 };
 
-const Component = ({
+export const Component = ({
   tasks,
   isLoading,
   onSearch,

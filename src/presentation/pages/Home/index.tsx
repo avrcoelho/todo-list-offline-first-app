@@ -21,9 +21,12 @@ export const Home = (): JSX.Element => {
         <Title>Tasks</Title>
       </Header>
 
-      {!!tasks && (
-        <ListTasks tasks={tasks} isLoading={isLoading} onSearch={onSearch} />
-      )}
+      <ListTasks
+        tasks={tasks || []}
+        isLoading={isLoading}
+        onSearch={onSearch}
+      />
+
       <ButtonCreate onPress={onHandleCreate} />
 
       <BottomSheetContainer

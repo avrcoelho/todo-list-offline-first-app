@@ -69,10 +69,13 @@ export const useController = () => {
   const setBottomSheetControls = useStore(
     (state) => state.setBottomSheetControls
   );
-  const onSetBottomSheetRef = useCallback((ref: BottomSheetMethods) => {
-    bottomSheetRef.current = ref;
-    setBottomSheetControls(ref);
-  }, []);
+  const onSetBottomSheetRef = useCallback(
+    (ref: BottomSheetMethods) => {
+      bottomSheetRef.current = ref;
+      setBottomSheetControls(ref);
+    },
+    [setBottomSheetControls]
+  );
 
   return {
     isOpen,
