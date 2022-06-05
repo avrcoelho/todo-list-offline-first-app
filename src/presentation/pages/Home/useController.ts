@@ -59,9 +59,7 @@ export const useController = () => {
   const onSearch = useCallback(
     (value: string) => {
       setSerachValue(value);
-      setTimeout(() => {
-        refetch();
-      }, 500);
+      refetch();
     },
     [refetch]
   );

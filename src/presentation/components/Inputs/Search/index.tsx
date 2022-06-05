@@ -17,6 +17,9 @@ interface InputSearchProps {
   amount?: number;
 }
 
+let TIMER: NodeJS.Timeout;
+const DELAY = 500;
+
 export const InputSearch = ({
   isLoading,
   amount,
@@ -29,11 +32,18 @@ export const InputSearch = ({
   };
 
   const onChangeInputText = (text: string): void => {
+    clearTimeout(TIMER);
     setValue(text);
   };
 
   useEffect(() => {
-    onChange(value);
+    TIMER = setTimeout(() => {
+      onChange(value);
+    }, DELAY);
+
+    return () => {
+      clearTimeout(TIMER);
+    };
   }, [value]);
 
   const amountIsNumber = typeof amount === "number";

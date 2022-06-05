@@ -4,7 +4,7 @@ import { TaskRepository } from "../infrastructure/repository/TaskRepository";
 export class UpdateTask {
   constructor(private readonly taskRepository: TaskRepository) {}
 
-  async execute(task: Task) {
-    return this.taskRepository.update(task);
+  async execute({ status = "resolved", ...restTask }: Task) {
+    return this.taskRepository.update({ status, ...restTask });
   }
 }

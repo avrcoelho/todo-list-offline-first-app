@@ -32,9 +32,9 @@ export class TaskRepository implements TasRepositoryPort {
     const store = await Store.init();
     const _id = new Realm.BSON.ObjectId();
     store.write(() => {
-      store.create("Task", { _id, ...task });
+      store.create("Task", { ...task, _id });
     });
-    return { _id: String(_id), ...task };
+    return { ...task, _id: String(_id) };
   }
 
   async update({ _id, ...restTaskToUpdate }: Task): Promise<Task> {

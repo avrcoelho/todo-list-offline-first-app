@@ -40,9 +40,10 @@ export const useController = () => {
     if (isError) {
       onError();
     }
-  }, [isError, onError]);
+  }, [isError]);
 
   const bottomsheetControls = useStore((state) => state.bottomSheetControls);
+  const removeTaskIdToUpdate = useStore((state) => state.removeTaskIdToUpdate);
   const onSuccess = () => {
     notification.success({
       text: `Task ${taskIdToUpdate ? "updated" : "created"}!`,
@@ -51,13 +52,14 @@ export const useController = () => {
     bottomsheetControls?.close();
     reset();
     resetForm();
+    removeTaskIdToUpdate();
   };
 
   useEffect(() => {
     if (isSuccess) {
       onSuccess();
     }
-  }, [isSuccess, onSuccess]);
+  }, [isSuccess]);
 
   const addTaskToStore = useStore((state) => state.add);
   const updateTaskToStore = useStore((state) => state.update);
