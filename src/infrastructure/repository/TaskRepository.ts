@@ -1,8 +1,8 @@
 import { Task } from "../../entities/Task";
-import { TasRepositoryPort } from "../../usecases/ports/TaskRepository";
+import { TaskRepositoryPort } from "../../usecases/ports/TaskRepository";
 import { Store } from "../store";
 
-export class TaskRepository implements TasRepositoryPort {
+export class TaskRepository implements TaskRepositoryPort {
   async find(params = {}): Promise<Task[]> {
     const firstSearch = Object.entries(params)
       .filter(([, value]) => !!value)

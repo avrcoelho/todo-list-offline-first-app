@@ -1,6 +1,6 @@
 import { Task } from "../../entities/Task";
 
-export interface TasRepositoryPort {
+export interface TaskRepositoryPort {
   find(name?: string): Promise<Task[]>;
   findById(id: string): Promise<Task | undefined>;
   create(task: Omit<Task, "_id">): Promise<Task>;
