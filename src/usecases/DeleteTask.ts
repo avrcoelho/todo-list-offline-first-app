@@ -9,6 +9,6 @@ export class DeleteTask {
 
   async execute(_id: string) {
     await this.taskRepository.deleteById(_id);
-    await this.taskToSyncRepository.deleteById(_id);
+    await this.taskToSyncRepository.create({ _id, type: "deleted" });
   }
 }
