@@ -6,16 +6,25 @@ export class TaskToSyncRepository implements TaskToSyncRepositoryPort {
   async find(): Promise<TaskToSync[]> {
     const store = await Store.init();
     const tasks = store.objects<TaskToSync>('TaskToSync');
-    return tasks.map(task => ({
+    const tasksToSyncSerialized = tasks.map(task => ({
       _id: task._id,
       type: task.type,
     }));
+    store.close();
+    return tasksToSyncSerialized;
   }
 
-  async findById(_id: string): Promise<TaskToSync | undefined> {
-    const store = await Store.init();
+  async findById(_id: string, store?: Realm): Promise<TaskToSync | undefined> {
+    const newStoreInstance = store || (await Store.init());
     const _idParsed = new Realm.BSON.ObjectId(_id);
-    return store.objectForPrimaryKey<TaskToSync>('TaskToSync', _idParsed);
+    const taskToSync = newStoreInstance.objectForPrimaryKey<TaskToSync>(
+      'TaskToSync',
+      _idParsed,
+    );
+    if (!store) {
+      newStoreInstance.close();
+    }
+    return taskToSync;
   }
 
   async create(taskToSync: TaskToSync): Promise<void> {
@@ -24,14 +33,16 @@ export class TaskToSyncRepository implements TaskToSyncRepositoryPort {
     store.write(() => {
       store.create('TaskToSync', { ...taskToSync, _id });
     });
+    store.close();
   }
 
   async deleteById(id: string): Promise<void> {
-    let taskToSync = await this.findById(id);
     const store = await Store.init();
+    let taskToSync = await this.findById(id, store);
     store.write(async () => {
       store.delete(taskToSync);
       taskToSync = undefined;
     });
+    store.close();
   }
 }

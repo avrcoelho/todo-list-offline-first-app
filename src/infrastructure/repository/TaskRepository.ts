@@ -11,23 +11,28 @@ export class TaskRepository implements TaskRepositoryPort {
           ? `${key} CONTAINS[c] '${value}'`
           : `${key} = '${value}'`,
       );
-
     const store = await Store.init();
     let tasks = store.objects<Task>('Task');
     if (firstSearch.length) {
       tasks = tasks.filtered(firstSearch.join(' || '));
     }
-    return tasks.map(task => ({
+    const tasksSerialized = tasks.map(task => ({
       _id: task._id,
       name: task.name,
       status: task.status,
     }));
+    store.close();
+    return tasksSerialized;
   }
 
-  async findById(_id: string): Promise<Task | undefined> {
-    const store = await Store.init();
+  async findById(_id: string, store?: Realm): Promise<Task | undefined> {
+    const newStoreInstance = store || (await Store.init());
     const _idParsed = new Realm.BSON.ObjectId(_id);
-    return store.objectForPrimaryKey<Task>('Task', _idParsed);
+    const task = newStoreInstance.objectForPrimaryKey<Task>('Task', _idParsed);
+    if (!store) {
+      newStoreInstance.close();
+    }
+    return task;
   }
 
   async create(task: Omit<Task, '_id'>): Promise<Task> {
@@ -36,24 +41,27 @@ export class TaskRepository implements TaskRepositoryPort {
     store.write(() => {
       store.create('Task', { ...task, _id });
     });
+    store.close();
     return { ...task, _id: String(_id) };
   }
 
   async update({ _id, ...restTaskToUpdate }: Task): Promise<Task> {
-    const task = await this.findById(_id);
     const store = await Store.init();
+    const task = await this.findById(_id, store);
     store.write(() => {
       Object.assign(task, restTaskToUpdate);
     });
+    store.close();
     return { _id, ...restTaskToUpdate };
   }
 
   async deleteById(id: string): Promise<void> {
-    let task = await this.findById(id);
     const store = await Store.init();
-    store.write(async () => {
+    let task = await this.findById(id, store);
+    store.write(() => {
       store.delete(task);
       task = undefined;
     });
+    store.close();
   }
 }
