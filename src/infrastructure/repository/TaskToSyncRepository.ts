@@ -20,8 +20,9 @@ export class TaskToSyncRepository implements TaskToSyncRepositoryPort {
 
   async create(taskToSync: TaskToSync): Promise<void> {
     const store = await Store.init();
+    const _id = new Realm.BSON.ObjectId();
     store.write(() => {
-      store.create("TaskToSync", taskToSync);
+      store.create("TaskToSync", { ...taskToSync, _id });
     });
   }
 

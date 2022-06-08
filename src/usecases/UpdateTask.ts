@@ -11,5 +11,6 @@ export class UpdateTask {
   async execute({ status = "resolved", ...restTask }: Task) {
     const task = await this.taskRepository.update({ status, ...restTask });
     await this.taskToSyncRepository.create({ _id: task._id, type: "updated" });
+    return task;
   }
 }
