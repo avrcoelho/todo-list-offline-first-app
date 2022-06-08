@@ -8,8 +8,15 @@ import { useController } from "./useController";
 import { Container, Title } from "./styles";
 
 export const FormCreate = (): JSX.Element => {
-  const { control, errors, handleSubmit, onSumit, isLoading, taskIdToUpdate } =
-    useController();
+  const {
+    control,
+    errors,
+    handleSubmit,
+    onSumit,
+    isLoading,
+    taskIdToUpdate,
+    taskToUpdate,
+  } = useController();
 
   return (
     <Container>
@@ -18,6 +25,7 @@ export const FormCreate = (): JSX.Element => {
       <InputTextControlled
         name="name"
         label="Name"
+        value={taskToUpdate?.name || ""}
         control={control}
         error={errors.name?.message}
       />

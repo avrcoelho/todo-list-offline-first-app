@@ -17,6 +17,7 @@ export const useController = () => {
   const {
     control,
     handleSubmit,
+    setValue,
     reset: resetForm,
     formState: { errors },
   } = useForm<FormData>({
@@ -24,6 +25,19 @@ export const useController = () => {
   });
 
   const taskIdToUpdate = useStore((state) => state.taskIdToUpdate);
+  const taskToUpdate = useStore((state) =>
+    state.tasks.find((task) => task._id === taskIdToUpdate)
+  );
+
+  const onSetValue = (taskValues?: Task) => {
+    setValue("name", taskValues?.name || "");
+    setValue("status", taskValues?.status || "resolved");
+  };
+
+  useEffect(() => {
+    onSetValue(taskToUpdate);
+  }, [taskToUpdate]);
+
   const { isError, isLoading, isSuccess, mutate, reset } = useMutation(
     taskIdToUpdate ? makeUpdateTask : makeCreateTask
   );
@@ -79,5 +93,13 @@ export const useController = () => {
     }
   };
 
-  return { control, handleSubmit, onSumit, errors, isLoading, taskIdToUpdate };
+  return {
+    control,
+    handleSubmit,
+    onSumit,
+    errors,
+    isLoading,
+    taskIdToUpdate,
+    taskToUpdate,
+  };
 };
