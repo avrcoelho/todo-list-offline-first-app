@@ -1,11 +1,9 @@
-import BottomSheet from "@gorhom/bottom-sheet";
-
-import { Status } from "../../../constants/Status";
-import { DefaultButton } from "../../Buttons/Default";
-import { InputTextControlled } from "../../Inputs/TextControlled";
-import { InputRadioControlled } from "../../Inputs/RadioControlled";
-import { useController } from "./useController";
-import { Container, Title } from "./styles";
+import { Status } from '../../../constants/Status';
+import { DefaultButton } from '../../Buttons/Default';
+import { InputTextControlled } from '../../Inputs/TextControlled';
+import { InputRadioControlled } from '../../Inputs/RadioControlled';
+import { useController } from './useController';
+import { Container, Title } from './styles';
 
 export const FormCreate = (): JSX.Element => {
   const {
@@ -20,12 +18,12 @@ export const FormCreate = (): JSX.Element => {
 
   return (
     <Container>
-      <Title>{taskIdToUpdate ? "Update" : "Create"} task</Title>
+      <Title>{taskIdToUpdate ? 'Update' : 'Create'} task</Title>
 
       <InputTextControlled
         name="name"
         label="Name"
-        value={taskToUpdate?.name || ""}
+        value={taskToUpdate?.name || ''}
         control={control}
         error={errors.name?.message}
       />
@@ -38,7 +36,7 @@ export const FormCreate = (): JSX.Element => {
       />
 
       <DefaultButton onPress={handleSubmit(onSumit)} isLoading={isLoading}>
-        {taskIdToUpdate ? "Update" : "Create"}
+        {taskIdToUpdate ? 'Update' : 'Create'}
       </DefaultButton>
     </Container>
   );

@@ -1,12 +1,12 @@
 // import "./wdyr";
-import "react-native-gesture-handler";
-import "react-native-get-random-values";
-import { SafeAreaView } from "react-native";
-import { StatusBar } from "expo-status-bar";
-import { NotificationContainer } from "react-native-hook-notification";
-import { isIphoneX } from "react-native-iphone-x-helper";
+import 'react-native-gesture-handler';
+import 'react-native-get-random-values';
+import { SafeAreaView } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { NotificationContainer } from 'react-native-hook-notification';
+import { isIphoneX } from 'react-native-iphone-x-helper';
 
-import { Home } from "./src/presentation/pages/Home";
+import { Home } from './src/presentation/pages/Home';
 
 const X_OFFSET = isIphoneX() ? 30 : 10;
 

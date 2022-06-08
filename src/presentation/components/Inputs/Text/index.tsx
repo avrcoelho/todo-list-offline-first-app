@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { TextInputProps } from "react-native";
+import { useState } from 'react';
+import { TextInputProps } from 'react-native';
 
-import { Container, Input, Label, Error } from "./styles";
+import { Container, Input, Label, Error } from './styles';
 
-type InputTextProps = Omit<TextInputProps, "accessibilityRole"> & {
+type InputTextProps = Omit<TextInputProps, 'accessibilityRole'> & {
   error?: string;
   label?: string;
 };

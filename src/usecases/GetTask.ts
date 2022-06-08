@@ -1,4 +1,4 @@
-import { TaskRepository } from "../infrastructure/repository/TaskRepository";
+import { TaskRepository } from '../infrastructure/repository/TaskRepository';
 
 export class GetTask {
   constructor(private readonly taskRepository: TaskRepository) {}

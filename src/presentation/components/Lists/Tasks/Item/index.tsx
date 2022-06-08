@@ -1,8 +1,9 @@
-import { memo } from "react";
-import { Task } from "../../../../../entities/Task";
-import { Options } from "../Options";
-import { Container, Content, Name, Status } from "./styles";
-import { useController } from "./useController";
+import { memo } from 'react';
+
+import { Task } from '../../../../../entities/Task';
+import { Options } from '../Options';
+import { Container, Content, Name, Status } from './styles';
+import { useController } from './useController';
 
 type TaskItemProps = {
   task: Task;

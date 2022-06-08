@@ -1,6 +1,4 @@
-import React from "react";
-
-import { Container, Content, ButtonText, Loader } from "./styles";
+import { Container, Content, ButtonText, Loader } from './styles';
 
 type ButtonProps = { onPress(): any; children: string; isLoading?: boolean };
 

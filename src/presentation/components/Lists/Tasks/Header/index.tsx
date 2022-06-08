@@ -1,4 +1,5 @@
-import { InputSearch } from "../../../Inputs/Search";
+/* eslint-disable react/require-default-props */
+import { InputSearch } from '../../../Inputs/Search';
 
 type ListTaskHeaderProps = {
   isLoading: boolean;
@@ -9,7 +10,7 @@ type ListTaskHeaderProps = {
 export const ListTaskHeader = ({
   isLoading,
   onSearch,
-  amount,
+  amount = 0,
 }: ListTaskHeaderProps): JSX.Element => {
   return (
     <InputSearch isLoading={isLoading} onChange={onSearch} amount={amount} />

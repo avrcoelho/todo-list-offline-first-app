@@ -1,11 +1,11 @@
-import styled from "styled-components/native";
-import { RectButton, Swipeable } from "react-native-gesture-handler";
+import styled from 'styled-components/native';
+import { RectButton, Swipeable } from 'react-native-gesture-handler';
 
 export const Container = styled(Swipeable).attrs({
   childrenContainerStyle: {
     minHeight: 60,
-    width: "100%",
-    backgroundColor: "#fff",
+    width: '100%',
+    backgroundColor: '#fff',
   },
 })``;
 
@@ -20,7 +20,7 @@ export const Content = styled(RectButton)`
 `;
 
 export const Name = styled.Text.attrs({
-  ellipsizeMode: "tail",
+  ellipsizeMode: 'tail',
   numberOfLines: 2,
 })`
   color: #001e2b;

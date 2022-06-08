@@ -1,5 +1,5 @@
-import styled from "styled-components/native";
-import { RectButton } from "react-native-gesture-handler";
+import styled from 'styled-components/native';
+import { RectButton } from 'react-native-gesture-handler';
 
 type ContainerProps = {
   $isLoading: boolean;
@@ -28,6 +28,6 @@ export const ButtonText = styled.Text`
 `;
 
 export const Loader = styled.ActivityIndicator.attrs({
-  size: "small",
-  color: "#001E2B",
+  size: 'small',
+  color: '#001E2B',
 })``;

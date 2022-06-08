@@ -1,6 +1,6 @@
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator } from 'react-native';
 
-import { Container } from "./styles";
+import { Container } from './styles';
 
 interface LoaderFooterListProps {
   isLoading: boolean;

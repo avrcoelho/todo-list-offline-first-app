@@ -1,5 +1,5 @@
-import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
-import styled, { css } from "styled-components/native";
+import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
+import styled, { css } from 'styled-components/native';
 
 export const Container = styled.View`
   min-height: 60px;

@@ -1,8 +1,7 @@
-import React from "react";
-import { RectButtonProps } from "react-native-gesture-handler";
-import { Feather } from "@expo/vector-icons";
+import { RectButtonProps } from 'react-native-gesture-handler';
+import { Feather } from '@expo/vector-icons';
 
-import { Container } from "./styles";
+import { Container } from './styles';
 
 type ButtonProps<T = {}> = T & RectButtonProps;
 

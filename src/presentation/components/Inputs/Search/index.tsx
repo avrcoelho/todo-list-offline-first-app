@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { MaterialIcons } from "@expo/vector-icons";
+import { useState, useEffect } from 'react';
+import { MaterialIcons } from '@expo/vector-icons';
 
 import {
   Container,
@@ -8,8 +8,7 @@ import {
   ButtonClear,
   Loader,
   AmountLabel,
-} from "./styles";
-import { useEffect } from "react";
+} from './styles';
 
 interface InputSearchProps {
   isLoading: boolean;
@@ -25,10 +24,10 @@ export const InputSearch = ({
   amount,
   onChange,
 }: InputSearchProps): JSX.Element => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
 
   const onClearSearch = (): void => {
-    setValue("");
+    setValue('');
   };
 
   const onChangeInputText = (text: string): void => {
@@ -44,9 +43,9 @@ export const InputSearch = ({
     return () => {
       clearTimeout(TIMER);
     };
-  }, [value]);
+  }, [onChange, value]);
 
-  const amountIsNumber = typeof amount === "number";
+  const amountIsNumber = typeof amount === 'number';
 
   return (
     <Container>
@@ -63,9 +62,10 @@ export const InputSearch = ({
 
         {!!value && (
           <>
-            {isLoading ? (
+            {isLoading && (
               <Loader size="small" color="#00ed64" testID="loader" />
-            ) : (
+            )}
+            {!isLoading && (
               <ButtonClear
                 activeOpacity={0.6}
                 onPress={onClearSearch}
@@ -79,7 +79,7 @@ export const InputSearch = ({
       </InputContainer>
       {amountIsNumber && (
         <AmountLabel>
-          {amount} task{amount !== 1 && "s"}
+          {amount} task{amount !== 1 && 's'}
         </AmountLabel>
       )}
     </Container>

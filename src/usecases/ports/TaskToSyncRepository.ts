@@ -1,4 +1,4 @@
-import { TaskToSync } from "../../entities/TaskToSync";
+import { TaskToSync } from '../../entities/TaskToSync';
 
 export interface TaskToSyncRepositoryPort {
   find(name?: string): Promise<TaskToSync[]>;

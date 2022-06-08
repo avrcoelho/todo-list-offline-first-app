@@ -1,7 +1,7 @@
-import { useCallback, useLayoutEffect, useReducer, useRef } from "react";
+import { useCallback, useLayoutEffect, useReducer, useRef } from 'react';
 
 type MutationFunction<TData, TVariables> = (
-  variables: TVariables
+  variables: TVariables,
 ) => Promise<TData | undefined>;
 
 type UseMutationResponse<TFunction> = {
@@ -25,21 +25,21 @@ const INITIAL_STATE = {
 
 const reducer = (
   state: typeof INITIAL_STATE,
-  action: ReducerAction
+  action: ReducerAction,
 ): typeof INITIAL_STATE => {
   switch (action.type) {
-    case "loading":
+    case 'loading':
       return {
         ...state,
         isLoading: true,
         isSuccess: false,
         isError: false,
       };
-    case "success":
+    case 'success':
       return { ...state, isSuccess: true };
-    case "error":
+    case 'error':
       return { ...state, isError: true };
-    case "reset":
+    case 'reset':
       return INITIAL_STATE;
     default:
       return { ...state, isLoading: false };
@@ -47,7 +47,7 @@ const reducer = (
 };
 
 export const useMutation = <TData = unknown, TVariables = void>(
-  handler: MutationFunction<TData, TVariables>
+  handler: MutationFunction<TData, TVariables>,
 ): UseMutationResponse<MutationFunction<TData, TVariables>> => {
   const handlerRef = useRef(handler);
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
@@ -60,21 +60,21 @@ export const useMutation = <TData = unknown, TVariables = void>(
     async (variables: TVariables): Promise<TData | undefined> => {
       let responseData: TData | undefined;
       try {
-        dispatch({ type: "loading" });
+        dispatch({ type: 'loading' });
         responseData = await handlerRef.current(variables);
-        dispatch({ type: "success" });
+        dispatch({ type: 'success' });
       } catch {
-        dispatch({ type: "error" });
+        dispatch({ type: 'error' });
       } finally {
-        dispatch({ type: "finally" });
+        dispatch({ type: 'finally' });
       }
       return responseData;
     },
-    []
+    [],
   );
 
   const reset = useCallback(() => {
-    dispatch({ type: "reset" });
+    dispatch({ type: 'reset' });
   }, []);
 
   return {

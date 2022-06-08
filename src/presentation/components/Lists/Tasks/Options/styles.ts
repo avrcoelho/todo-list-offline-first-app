@@ -1,11 +1,11 @@
-import styled from "styled-components/native";
-import { Animated, I18nManager } from "react-native";
-import { RectButton } from "react-native-gesture-handler";
+import styled from 'styled-components/native';
+import { Animated, I18nManager } from 'react-native';
+import { RectButton } from 'react-native-gesture-handler';
 
 export const Container = styled(RectButton)`
   background-color: #dd2c00;
   align-items: center;
-  flex-direction: ${I18nManager.isRTL ? "row-reverse" : "row"};
+  flex-direction: ${I18nManager.isRTL ? 'row-reverse' : 'row'};
   flex: 1;
   justify-content: flex-end;
 `;

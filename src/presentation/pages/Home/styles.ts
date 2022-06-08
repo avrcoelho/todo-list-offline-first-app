@@ -1,5 +1,5 @@
-import styled, { css } from "styled-components/native";
-import BottomSheet from "@gorhom/bottom-sheet";
+import styled, { css } from 'styled-components/native';
+import BottomSheet from '@gorhom/bottom-sheet';
 
 export const Container = styled.View`
   flex: 1;

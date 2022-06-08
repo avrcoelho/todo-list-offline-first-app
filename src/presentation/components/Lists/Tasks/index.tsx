@@ -1,10 +1,10 @@
-import { memo } from "react";
+import { memo } from 'react';
 
-import { Task } from "../../../../entities/Task";
-import { LoaderFooterList } from "../../Loaders/FooterList";
-import { ListTaskHeader } from "./Header";
-import { TaskItem } from "./Item";
-import { Container } from "./styles";
+import { Task } from '../../../../entities/Task';
+import { LoaderFooterList } from '../../Loaders/FooterList';
+import { ListTaskHeader } from './Header';
+import { TaskItem } from './Item';
+import { Container } from './styles';
 
 type ListTasksProps = {
   tasks: Task[];
@@ -19,7 +19,7 @@ export const Component = ({
 }: ListTasksProps): JSX.Element => {
   return (
     <Container
-      keyExtractor={(task) => task._id}
+      keyExtractor={task => task._id}
       data={tasks}
       renderItem={({ item: task }) => <TaskItem task={task} />}
       keyboardDismissMode="on-drag"

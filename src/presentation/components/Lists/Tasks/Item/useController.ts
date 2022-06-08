@@ -1,26 +1,26 @@
-import { useEffect } from "react";
-import { useNotification } from "react-native-hook-notification";
+import { useCallback, useEffect } from 'react';
+import { useNotification } from 'react-native-hook-notification';
 
-import { Task } from "../../../../../entities/Task";
-import { makeDeleteTask } from "../../../../../main/factories/usecases/deleteTask";
-import { useMutation } from "../../../../hooks/useMutation";
-import { useStore } from "../../../../store/useStore";
+import { Task } from '../../../../../entities/Task';
+import { makeDeleteTask } from '../../../../../main/factories/usecases/deleteTask';
+import { useMutation } from '../../../../hooks/useMutation';
+import { useStore } from '../../../../store/useStore';
 
 export const useController = (task: Task) => {
   const { isError, isSuccess, mutate, reset } = useMutation(makeDeleteTask);
   const notification = useNotification();
 
-  const onRemoveFromStore = useStore((state) => state.remove);
+  const onRemoveFromStore = useStore(state => state.remove);
   const onDelete = (id: string) => {
     mutate(id);
   };
 
-  const onError = () => {
+  const onError = useCallback(() => {
     notification.error({
-      text: "Error deleting task",
+      text: 'Error deleting task',
     });
     reset();
-  };
+  }, [notification, reset]);
 
   useEffect(() => {
     if (isError) {
@@ -28,13 +28,13 @@ export const useController = (task: Task) => {
     }
   }, [isError, onError]);
 
-  const onSuccess = () => {
+  const onSuccess = useCallback(() => {
     notification.success({
-      text: "Task deleted!",
+      text: 'Task deleted!',
     });
     reset();
     onRemoveFromStore(task._id);
-  };
+  }, [notification, onRemoveFromStore, reset, task._id]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -42,8 +42,8 @@ export const useController = (task: Task) => {
     }
   }, [isSuccess, onSuccess]);
 
-  const onAddTaskIdToUpdate = useStore((state) => state.addTaskIdToUpdate);
-  const bottomsheetControls = useStore((state) => state.bottomSheetControls);
+  const onAddTaskIdToUpdate = useStore(state => state.addTaskIdToUpdate);
+  const bottomsheetControls = useStore(state => state.bottomSheetControls);
   const onOpenUpdate = (id: string) => {
     onAddTaskIdToUpdate(id);
     bottomsheetControls?.expand();

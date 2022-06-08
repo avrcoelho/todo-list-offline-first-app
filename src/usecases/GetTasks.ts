@@ -1,5 +1,5 @@
-import { Task } from "../entities/Task";
-import { TaskRepository } from "../infrastructure/repository/TaskRepository";
+import { Task } from '../entities/Task';
+import { TaskRepository } from '../infrastructure/repository/TaskRepository';
 
 export class GetTasks {
   constructor(private readonly taskRepository: TaskRepository) {}

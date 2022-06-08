@@ -1,14 +1,14 @@
-import { TaskRepositoryPort } from "./ports/TaskRepository";
-import { TaskToSyncRepositoryPort } from "./ports/TaskToSyncRepository";
+import { TaskRepositoryPort } from './ports/TaskRepository';
+import { TaskToSyncRepositoryPort } from './ports/TaskToSyncRepository';
 
 export class DeleteTask {
   constructor(
     private readonly taskRepository: TaskRepositoryPort,
-    private readonly taskToSyncRepository: TaskToSyncRepositoryPort
+    private readonly taskToSyncRepository: TaskToSyncRepositoryPort,
   ) {}
 
   async execute(_id: string) {
     await this.taskRepository.deleteById(_id);
-    await this.taskToSyncRepository.create({ _id, type: "deleted" });
+    await this.taskToSyncRepository.create({ _id, type: 'deleted' });
   }
 }

@@ -1,18 +1,18 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { BottomSheetMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
-import { useNotification } from "react-native-hook-notification";
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
+import { useNotification } from 'react-native-hook-notification';
 
-import { makeGetTasks } from "../../../main/factories/usecases/getTasks";
-import { useQuery } from "../../hooks/useQuery";
-import { useStore } from "../../store/useStore";
+import { makeGetTasks } from '../../../main/factories/usecases/getTasks';
+import { useQuery } from '../../hooks/useQuery';
+import { useStore } from '../../store/useStore';
 
 export const useController = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [searchValue, setSerachValue] = useState("");
+  const [searchValue, setSerachValue] = useState('');
   const bottomSheetRef = useRef<BottomSheetMethods>();
-  const tasks = useStore((state) => state.tasks);
+  const tasks = useStore(state => state.tasks);
 
-  const removeTaskIdToUpdate = useStore((state) => state.removeTaskIdToUpdate);
+  const removeTaskIdToUpdate = useStore(state => state.removeTaskIdToUpdate);
   const onHandleSheetChanges = useCallback(
     (index: number) => {
       const isOpened = !!index;
@@ -21,10 +21,10 @@ export const useController = () => {
         removeTaskIdToUpdate();
       }
     },
-    [removeTaskIdToUpdate]
+    [removeTaskIdToUpdate],
   );
 
-  const taskIdToUpdate = useStore((state) => state.taskIdToUpdate);
+  const taskIdToUpdate = useStore(state => state.taskIdToUpdate);
   useEffect(() => {
     if (taskIdToUpdate) {
       setIsOpen(true);
@@ -37,18 +37,18 @@ export const useController = () => {
   };
 
   const { isError, isSuccess, isLoading, data, refetch } = useQuery(() =>
-    makeGetTasks({ name: searchValue })
+    makeGetTasks({ name: searchValue }),
   );
   const notification = useNotification();
   useEffect(() => {
     if (isError) {
       notification.error({
-        text: "Getting tasks error!",
+        text: 'Getting tasks error!',
       });
     }
   }, [isError, notification]);
 
-  const initTasks = useStore((state) => state.init);
+  const initTasks = useStore(state => state.init);
   useEffect(() => {
     const canInit = isSuccess && data;
     if (canInit) {
@@ -61,18 +61,18 @@ export const useController = () => {
       setSerachValue(value);
       refetch();
     },
-    [refetch]
+    [refetch],
   );
 
   const setBottomSheetControls = useStore(
-    (state) => state.setBottomSheetControls
+    state => state.setBottomSheetControls,
   );
   const onSetBottomSheetRef = useCallback(
     (ref: BottomSheetMethods) => {
       bottomSheetRef.current = ref;
       setBottomSheetControls(ref);
     },
-    [setBottomSheetControls]
+    [setBottomSheetControls],
   );
 
   return {
