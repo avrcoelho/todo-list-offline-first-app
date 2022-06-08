@@ -1,12 +1,12 @@
-import { TaskToSync } from "../../entities/TaskToSync";
-import { TaskToSyncRepositoryPort } from "../../usecases/ports/TaskToSyncRepository";
-import { Store } from "../store";
+import { TaskToSync } from '../../entities/TaskToSync';
+import { TaskToSyncRepositoryPort } from '../../usecases/ports/TaskToSyncRepository';
+import { Store } from '../store';
 
 export class TaskToSyncRepository implements TaskToSyncRepositoryPort {
   async find(): Promise<TaskToSync[]> {
     const store = await Store.init();
-    let tasks = store.objects<TaskToSync>("TaskToSync");
-    return tasks.map((task) => ({
+    const tasks = store.objects<TaskToSync>('TaskToSync');
+    return tasks.map(task => ({
       _id: task._id,
       type: task.type,
     }));
@@ -15,14 +15,14 @@ export class TaskToSyncRepository implements TaskToSyncRepositoryPort {
   async findById(_id: string): Promise<TaskToSync | undefined> {
     const store = await Store.init();
     const _idParsed = new Realm.BSON.ObjectId(_id);
-    return store.objectForPrimaryKey<TaskToSync>("TaskToSync", _idParsed);
+    return store.objectForPrimaryKey<TaskToSync>('TaskToSync', _idParsed);
   }
 
   async create(taskToSync: TaskToSync): Promise<void> {
     const store = await Store.init();
     const _id = new Realm.BSON.ObjectId();
     store.write(() => {
-      store.create("TaskToSync", { ...taskToSync, _id });
+      store.create('TaskToSync', { ...taskToSync, _id });
     });
   }
 

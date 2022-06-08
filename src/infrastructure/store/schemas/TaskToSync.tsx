@@ -1,8 +1,8 @@
 export const TaskToSyncSchema = {
-  name: "TaskToSync",
+  name: 'TaskToSync',
   properties: {
-    _id: "objectId",
-    type: "string",
+    _id: 'objectId',
+    type: 'string',
   },
-  primaryKey: "_id",
+  primaryKey: '_id',
 };
