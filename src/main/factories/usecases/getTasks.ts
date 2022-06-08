@@ -1,8 +1,8 @@
-import { Task } from "../../../entities/Task";
-import { TaskRepository } from "../../../infrastructure/repository/TaskRepository";
-import { GetTasks } from "../../../usecases/GetTasks";
+import { Task } from '../../../entities/Task';
+import { TaskRepository } from '../../../infrastructure/repository/TaskRepository';
+import { GetTasks } from '../../../usecases/GetTasks';
 
-type Props = Omit<Partial<Task>, "_id">;
+type Props = Omit<Partial<Task>, '_id'>;
 
 export const makeGetTasks = async (props?: Props) => {
   const taskRepository = new TaskRepository();
