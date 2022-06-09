@@ -3,10 +3,11 @@ import { TaskToSyncRepositoryPort } from '../../usecases/ports/TaskToSyncReposit
 import { Store } from '../store';
 
 export class TaskToSyncRepository implements TaskToSyncRepositoryPort {
-  async find(): Promise<TaskToSync[]> {
+  async find(type: string): Promise<TaskToSync[]> {
     const store = await Store.init();
     const tasks = store.objects<TaskToSync>('TaskToSync');
-    const tasksToSyncSerialized = tasks.map(task => ({
+    const filtered = tasks.filtered(`type = ${type}`);
+    const tasksToSyncSerialized = filtered.map(task => ({
       _id: task._id,
       type: task.type,
     }));
