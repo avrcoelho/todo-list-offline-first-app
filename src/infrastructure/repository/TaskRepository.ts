@@ -2,7 +2,7 @@ import { Task } from '../../entities/Task';
 import { TaskRepositoryPort } from '../../usecases/ports/TaskRepository';
 import { Store } from '../store';
 
-export class TaskRepository implements TaskRepositoryPort {
+export class TaskRepository extends Store implements TaskRepositoryPort {
   async find(params = {}): Promise<Task[]> {
     const firstSearch = Object.entries(params)
       .filter(([, value]) => !!value)
@@ -11,7 +11,7 @@ export class TaskRepository implements TaskRepositoryPort {
           ? `${key} CONTAINS[c] '${value}'`
           : `${key} = '${value}'`,
       );
-    const store = await Store.init();
+    const store = await this.init();
     let tasks = store.objects<Task>('Task');
     if (firstSearch.length) {
       tasks = tasks.filtered(firstSearch.join(' || '));
@@ -26,7 +26,7 @@ export class TaskRepository implements TaskRepositoryPort {
   }
 
   async findById(_id: string, store?: Realm): Promise<Task | undefined> {
-    const newStoreInstance = store || (await Store.init());
+    const newStoreInstance = store || (await this.init());
     const _idParsed = new Realm.BSON.ObjectId(_id);
     const task = newStoreInstance.objectForPrimaryKey<Task>('Task', _idParsed);
     if (!store) {
@@ -36,7 +36,7 @@ export class TaskRepository implements TaskRepositoryPort {
   }
 
   async create(task: Omit<Task, '_id'>): Promise<Task> {
-    const store = await Store.init();
+    const store = await this.init();
     const _id = new Realm.BSON.ObjectId();
     store.write(() => {
       store.create('Task', { ...task, _id });
@@ -46,7 +46,7 @@ export class TaskRepository implements TaskRepositoryPort {
   }
 
   async update({ _id, ...restTaskToUpdate }: Task): Promise<Task> {
-    const store = await Store.init();
+    const store = await this.init();
     const task = await this.findById(_id, store);
     store.write(() => {
       Object.assign(task, restTaskToUpdate);
@@ -56,7 +56,7 @@ export class TaskRepository implements TaskRepositoryPort {
   }
 
   async deleteById(id: string): Promise<void> {
-    const store = await Store.init();
+    const store = await this.init();
     let task = await this.findById(id, store);
     store.write(() => {
       store.delete(task);
