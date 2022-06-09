@@ -19,7 +19,7 @@ export class TaskGateway extends HttpClient implements TaskGatewayPort {
     });
   }
 
-  async delete(id: string): Promise<void> {
+  async deleteById(id: string): Promise<void> {
     await this.deleteRequest({
       url: `${URL}/${id}`,
     });
