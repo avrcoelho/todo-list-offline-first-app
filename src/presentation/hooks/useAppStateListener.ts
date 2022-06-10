@@ -1,18 +1,28 @@
-import { useEffect, useLayoutEffect, useRef } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 import { AppState, AppStateStatus } from 'react-native';
 
-export const useAppStateListener = (func: () => void) => {
+const DEFAULT_OPTIONS = {
+  enable: true,
+};
+
+export const useAppStateListener = (
+  func: () => void,
+  options = DEFAULT_OPTIONS,
+) => {
   const funcRef = useRef(func);
 
   useLayoutEffect(() => {
     funcRef.current = func;
   });
 
-  const onExecute = (status: AppStateStatus) => {
-    if (status === 'active') {
-      funcRef.current();
-    }
-  };
+  const onExecute = useCallback(
+    (status: AppStateStatus) => {
+      if (status === 'active' && options?.enable) {
+        funcRef.current();
+      }
+    },
+    [options?.enable],
+  );
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', onExecute);
@@ -20,5 +30,5 @@ export const useAppStateListener = (func: () => void) => {
     return () => {
       subscription.remove();
     };
-  }, []);
+  }, [onExecute]);
 };

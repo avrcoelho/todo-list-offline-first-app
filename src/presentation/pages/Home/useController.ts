@@ -43,7 +43,7 @@ export const useController = () => {
   useEffect(() => {
     if (isError) {
       notification.error({
-        text: 'Getting tasks error!',
+        text: 'Error getting tasks!',
       });
     }
   }, [isError, notification]);
