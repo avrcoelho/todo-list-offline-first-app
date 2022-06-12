@@ -2,7 +2,7 @@ import { Task } from '../../entities/Task';
 import { TaskGatewayPort } from '../../usecases/ports/TaskGateway';
 import { HttpClient } from '../http/httpClient/HttpClient';
 
-const URL = 'http://localhost:3333';
+const URL = 'http://localhost:3333/tasks';
 
 export class TaskGateway extends HttpClient implements TaskGatewayPort {
   async create(task: Task): Promise<void> {
