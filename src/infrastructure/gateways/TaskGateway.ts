@@ -14,7 +14,7 @@ export class TaskGateway extends HttpClient implements TaskGatewayPort {
 
   async update(task: Task): Promise<void> {
     await this.putRequest({
-      url: URL,
+      url: `${URL}/${task.id}`,
       body: task,
     });
   }
