@@ -1,5 +1,5 @@
-import { useNetInfo } from '@react-native-community/netinfo';
 import { useEffect } from 'react';
+import { useNetInfo } from '@react-native-community/netinfo';
 import { useNotification } from 'react-native-hook-notification';
 
 import { makeSyncTasks } from '../../main/factories/usecases/syncTasks';
@@ -16,12 +16,12 @@ export const useSyncTasks = () => {
     enable: isConnected,
   });
 
-  useEffect(() => {
-    const canExecuteMutate = isConnected && !isLoading;
-    if (canExecuteMutate) {
-      mutate();
-    }
-  }, [isLoading, mutate, isConnected]);
+  // useEffect(() => {
+  //   const canExecuteMutate = isConnected && !isLoading;
+  //   if (canExecuteMutate) {
+  //     mutate();
+  //   }
+  // }, [isLoading, mutate, isConnected]);
 
   const notification = useNotification();
   useEffect(() => {

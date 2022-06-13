@@ -10,11 +10,8 @@ export class SyncTasks {
   ) {}
 
   async execute() {
-    const syncPromises = [
-      this.syncTasksCreated.execute(),
-      this.syncTasksDeleted.execute(),
-      this.syncTasksUpdated.execute(),
-    ];
-    await Promise.all(syncPromises);
+    await this.syncTasksCreated.execute();
+    await this.syncTasksDeleted.execute();
+    await this.syncTasksUpdated.execute();
   }
 }

@@ -28,11 +28,7 @@ export class TaskRepository extends Store implements TaskRepositoryPort {
   async findById(_id: string, store?: Realm): Promise<Task | undefined> {
     const newStoreInstance = store || (await this.init());
     const _idParsed = new Realm.BSON.ObjectId(_id);
-    const task = newStoreInstance.objectForPrimaryKey<Task>('Task', _idParsed);
-    if (!store) {
-      newStoreInstance.close();
-    }
-    return task;
+    return newStoreInstance.objectForPrimaryKey<Task>('Task', _idParsed);
   }
 
   async create(task: Omit<Task, '_id'>): Promise<Task> {
