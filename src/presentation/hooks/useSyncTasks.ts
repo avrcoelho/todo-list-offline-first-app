@@ -8,7 +8,7 @@ import { useMutation } from './useMutation';
 
 export const useSyncTasks = () => {
   const netInfo = useNetInfo();
-  const { isError, isLoading, mutate } = useMutation(makeSyncTasks);
+  const { isError, mutate } = useMutation(makeSyncTasks);
 
   const isConnected = !!netInfo.isConnected;
 
@@ -16,12 +16,11 @@ export const useSyncTasks = () => {
     enable: isConnected,
   });
 
-  // useEffect(() => {
-  //   const canExecuteMutate = isConnected && !isLoading;
-  //   if (canExecuteMutate) {
-  //     mutate();
-  //   }
-  // }, [isLoading, mutate, isConnected]);
+  useEffect(() => {
+    if (isConnected) {
+      mutate();
+    }
+  }, [mutate, isConnected]);
 
   const notification = useNotification();
   useEffect(() => {
