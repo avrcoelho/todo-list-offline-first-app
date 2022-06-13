@@ -7,6 +7,7 @@ export abstract class Store {
     return Realm.open({
       path: 'mylocalDatabase',
       schema: [TaskSchema, TaskToSyncSchema],
+      schemaVersion: 2,
     });
   }
 }
