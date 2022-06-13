@@ -10,7 +10,10 @@ export class CreateTask {
 
   async execute({ status = 'resolved', ...restTask }: Omit<Task, 'id'>) {
     const task = await this.taskRepository.create({ status, ...restTask });
-    await this.taskToSyncRepository.create({ id: task.id, type: 'created' });
+    await this.taskToSyncRepository.create({
+      taskId: task.id,
+      type: 'created',
+    });
     return task;
   }
 }

@@ -12,6 +12,7 @@ export class TaskToSyncRepository
     const filtered = tasks.filtered(`type = "${type}"`);
     const tasksToSyncSerialized = filtered.map(task => ({
       id: task.id,
+      taskId: task.taskId,
       type: task.type,
     }));
     store.close();
@@ -33,9 +34,10 @@ export class TaskToSyncRepository
 
   async create(taskToSync: TaskToSync): Promise<void> {
     const store = await this.init();
-    const id = new Realm.BSON.ObjectId(taskToSync.id);
+    const id = new Realm.BSON.ObjectId();
+    const taskId = new Realm.BSON.ObjectId(taskToSync.taskId);
     store.write(() => {
-      store.create('TaskToSync', { ...taskToSync, id });
+      store.create('TaskToSync', { ...taskToSync, id, taskId });
     });
     store.close();
   }

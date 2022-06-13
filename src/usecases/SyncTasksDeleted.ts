@@ -9,11 +9,10 @@ export class SyncTasksDeleted {
 
   async execute() {
     const tasksDeleted = await this.taskToSyncRepository.find('deleted');
-    const tasksIdDeleted = tasksDeleted.map(task => task.id);
     await Promise.all(
-      tasksIdDeleted.map(async taskId => {
+      tasksDeleted.map(async ({ id, taskId }) => {
         await this.taskGateway.deleteById(taskId);
-        await this.taskToSyncRepository.deleteById(taskId);
+        await this.taskToSyncRepository.deleteById(id);
       }),
     );
   }

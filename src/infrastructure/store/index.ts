@@ -5,7 +5,7 @@ import { TaskToSyncSchema } from './schemas/TaskToSync';
 export abstract class Store {
   protected async init() {
     return Realm.open({
-      path: 'localDB',
+      path: 'DB',
       schema: [TaskSchema, TaskToSyncSchema],
     });
   }

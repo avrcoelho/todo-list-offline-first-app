@@ -11,13 +11,12 @@ export class SyncTasksUpdated {
 
   async execute() {
     const tasksUpdated = await this.taskToSyncRepository.find('updated');
-    const tasksIdUpdated = tasksUpdated.map(task => task.id);
     await Promise.all(
-      tasksIdUpdated.map(async taskId => {
+      tasksUpdated.map(async ({ id, taskId }) => {
         const task = await this.taskRepository.findById(taskId);
         if (task) {
           await this.taskGateway.update(task);
-          await this.taskToSyncRepository.deleteById(taskId);
+          await this.taskToSyncRepository.deleteById(id);
         }
       }),
     );

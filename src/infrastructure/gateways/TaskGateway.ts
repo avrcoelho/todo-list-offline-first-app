@@ -4,7 +4,21 @@ import { HttpClient } from '../http/httpClient/HttpClient';
 
 const URL = 'http://localhost:3333/tasks';
 
+type ErrorData = {
+  response: {
+    status: number;
+  };
+};
+
+const NOT_FOUND = 404;
+
 export class TaskGateway extends HttpClient implements TaskGatewayPort {
+  private veriryStatus(error: ErrorData) {
+    if (error.response.status !== NOT_FOUND) {
+      throw new Error();
+    }
+  }
+
   async create(task: Task): Promise<void> {
     await this.postRequest({
       url: URL,
@@ -13,15 +27,23 @@ export class TaskGateway extends HttpClient implements TaskGatewayPort {
   }
 
   async update(task: Task): Promise<void> {
-    await this.putRequest({
-      url: `${URL}/${task.id}`,
-      body: task,
-    });
+    try {
+      await this.putRequest({
+        url: `${URL}/${task.id}`,
+        body: task,
+      });
+    } catch (error) {
+      this.veriryStatus(error as ErrorData);
+    }
   }
 
   async deleteById(id: string): Promise<void> {
-    await this.deleteRequest({
-      url: `${URL}/${id}`,
-    });
+    try {
+      await this.deleteRequest({
+        url: `${URL}/${id}`,
+      });
+    } catch (error) {
+      this.veriryStatus(error as ErrorData);
+    }
   }
 }

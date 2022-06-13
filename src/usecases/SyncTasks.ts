@@ -11,7 +11,7 @@ export class SyncTasks {
 
   async execute() {
     await this.syncTasksCreated.execute();
-    await this.syncTasksDeleted.execute();
     await this.syncTasksUpdated.execute();
+    await this.syncTasksDeleted.execute();
   }
 }

@@ -3,6 +3,7 @@ export const TaskToSyncSchema = {
   properties: {
     id: 'objectId',
     type: 'string',
+    taskId: 'objectId',
   },
   primaryKey: 'id',
 };
