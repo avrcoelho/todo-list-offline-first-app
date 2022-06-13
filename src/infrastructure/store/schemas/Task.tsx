@@ -1,9 +1,9 @@
 export const TaskSchema = {
   name: 'Task',
   properties: {
-    _id: 'objectId',
+    id: 'objectId',
     name: 'string',
     status: 'string?',
   },
-  primaryKey: '_id',
+  primaryKey: 'id',
 };

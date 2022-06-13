@@ -17,7 +17,7 @@ export class TaskRepository extends Store implements TaskRepositoryPort {
       tasks = tasks.filtered(firstSearch.join(' || '));
     }
     const tasksSerialized = tasks.map(task => ({
-      _id: task._id,
+      id: task.id,
       name: task.name,
       status: task.status,
     }));
@@ -25,30 +25,30 @@ export class TaskRepository extends Store implements TaskRepositoryPort {
     return tasksSerialized;
   }
 
-  async findById(_id: string, store?: Realm): Promise<Task | undefined> {
+  async findById(id: string, store?: Realm): Promise<Task | undefined> {
     const newStoreInstance = store || (await this.init());
-    const _idParsed = new Realm.BSON.ObjectId(_id);
-    return newStoreInstance.objectForPrimaryKey<Task>('Task', _idParsed);
+    const idParsed = new Realm.BSON.ObjectId(id);
+    return newStoreInstance.objectForPrimaryKey<Task>('Task', idParsed);
   }
 
-  async create(task: Omit<Task, '_id'>): Promise<Task> {
+  async create(task: Omit<Task, 'id'>): Promise<Task> {
     const store = await this.init();
-    const _id = new Realm.BSON.ObjectId();
+    const id = new Realm.BSON.ObjectId();
     store.write(() => {
-      store.create('Task', { ...task, _id });
+      store.create('Task', { ...task, id });
     });
     store.close();
-    return { ...task, _id: String(_id) };
+    return { ...task, id: String(id) };
   }
 
-  async update({ _id, ...restTaskToUpdate }: Task): Promise<Task> {
+  async update({ id, ...restTaskToUpdate }: Task): Promise<Task> {
     const store = await this.init();
-    const task = await this.findById(_id, store);
+    const task = await this.findById(id, store);
     store.write(() => {
       Object.assign(task, restTaskToUpdate);
     });
     store.close();
-    return { _id, ...restTaskToUpdate };
+    return { id, ...restTaskToUpdate };
   }
 
   async deleteById(id: string): Promise<void> {

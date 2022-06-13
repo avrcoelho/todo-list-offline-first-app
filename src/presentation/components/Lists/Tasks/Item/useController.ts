@@ -33,8 +33,8 @@ export const useController = (task: Task) => {
       text: 'Task deleted!',
     });
     reset();
-    onRemoveFromStore(task._id);
-  }, [notification, onRemoveFromStore, reset, task._id]);
+    onRemoveFromStore(task.id);
+  }, [notification, onRemoveFromStore, reset, task.id]);
 
   useEffect(() => {
     if (isSuccess) {

@@ -19,9 +19,9 @@ export const Component = ({ task }: TaskItemProps) => {
       leftThreshold={80}
       enableTrackpadTwoFingerGesture
       rightThreshold={70}
-      onSwipeableOpen={() => onDelete(task._id)}
+      onSwipeableOpen={() => onDelete(task.id)}
     >
-      <Content onPress={() => onOpenUpdate(task._id)}>
+      <Content onPress={() => onOpenUpdate(task.id)}>
         <Name>{task.name}</Name>
         <Status>{task.status}</Status>
       </Content>

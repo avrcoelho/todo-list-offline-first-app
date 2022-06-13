@@ -3,7 +3,7 @@ import { TaskRepository } from '../../../infrastructure/repository/TaskRepositor
 import { TaskToSyncRepository } from '../../../infrastructure/repository/TaskToSyncRepository';
 import { CreateTask } from '../../../usecases/CreateTask';
 
-type Props = Omit<Task, '_id'>;
+type Props = Omit<Task, 'id'>;
 
 export const makeCreateTask = async (props: Props) => {
   const taskRepository = new TaskRepository();

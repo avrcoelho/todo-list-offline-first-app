@@ -1,4 +1,4 @@
 export interface TaskToSync {
-  _id: string;
+  id: string;
   type: 'deleted' | 'updated' | 'created';
 }

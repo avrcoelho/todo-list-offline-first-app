@@ -11,7 +11,7 @@ export class SyncTasksUpdated {
 
   async execute() {
     const tasksUpdated = await this.taskToSyncRepository.find('updated');
-    const tasksIdUpdated = tasksUpdated.map(task => task._id);
+    const tasksIdUpdated = tasksUpdated.map(task => task.id);
     await Promise.all(
       tasksIdUpdated.map(async taskId => {
         const task = await this.taskRepository.findById(taskId);

@@ -11,7 +11,7 @@ import { useMutation } from '../../../hooks/useMutation';
 import { useStore } from '../../../store/useStore';
 import { makeUpdateTask } from '../../../../main/factories/usecases/updateTask';
 
-type FormData = Omit<Task, '_id'>;
+type FormData = Omit<Task, 'id'>;
 
 export const useController = () => {
   const {
@@ -26,7 +26,7 @@ export const useController = () => {
 
   const taskIdToUpdate = useStore(state => state.taskIdToUpdate);
   const taskToUpdate = useStore(state =>
-    state.tasks.find(task => task._id === taskIdToUpdate),
+    state.tasks.find(task => task.id === taskIdToUpdate),
   );
 
   const onSetValue = useCallback(
@@ -97,7 +97,7 @@ export const useController = () => {
   };
 
   const onSumit = async (formData: FormData) => {
-    const taskData = await mutate({ _id: taskIdToUpdate, ...formData } as Task);
+    const taskData = await mutate({ id: taskIdToUpdate, ...formData } as Task);
     if (taskData) {
       updateStore(taskData);
     }

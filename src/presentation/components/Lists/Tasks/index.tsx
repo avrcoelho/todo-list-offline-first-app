@@ -19,7 +19,7 @@ export const Component = ({
 }: ListTasksProps): JSX.Element => {
   return (
     <Container
-      keyExtractor={task => task._id}
+      keyExtractor={task => task.id}
       data={tasks}
       renderItem={({ item: task }) => <TaskItem task={task} />}
       keyboardDismissMode="on-drag"

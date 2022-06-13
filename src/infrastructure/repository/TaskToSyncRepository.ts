@@ -11,19 +11,19 @@ export class TaskToSyncRepository
     const tasks = store.objects<TaskToSync>('TaskToSync');
     const filtered = tasks.filtered(`type = "${type}"`);
     const tasksToSyncSerialized = filtered.map(task => ({
-      _id: task._id,
+      id: task.id,
       type: task.type,
     }));
     store.close();
     return tasksToSyncSerialized;
   }
 
-  async findById(_id: string, store?: Realm): Promise<TaskToSync | undefined> {
+  async findById(id: string, store?: Realm): Promise<TaskToSync | undefined> {
     const newStoreInstance = store || (await this.init());
-    const _idParsed = new Realm.BSON.ObjectId(_id);
+    const idParsed = new Realm.BSON.ObjectId(id);
     const taskToSync = newStoreInstance.objectForPrimaryKey<TaskToSync>(
       'TaskToSync',
-      _idParsed,
+      idParsed,
     );
     if (!store) {
       newStoreInstance.close();
@@ -33,9 +33,9 @@ export class TaskToSyncRepository
 
   async create(taskToSync: TaskToSync): Promise<void> {
     const store = await this.init();
-    const _id = new Realm.BSON.ObjectId(taskToSync._id);
+    const id = new Realm.BSON.ObjectId(taskToSync.id);
     store.write(() => {
-      store.create('TaskToSync', { ...taskToSync, _id });
+      store.create('TaskToSync', { ...taskToSync, id });
     });
     store.close();
   }

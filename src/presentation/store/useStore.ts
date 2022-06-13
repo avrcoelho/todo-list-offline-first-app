@@ -10,8 +10,8 @@ type UseStore = {
   init(tasks: Task[]): void;
   add(task: Task): void;
   update(task: Task): void;
-  remove(_id: string): void;
-  addTaskIdToUpdate(_id: string): void;
+  remove(id: string): void;
+  addTaskIdToUpdate(id: string): void;
   removeTaskIdToUpdate(): void;
   setBottomSheetControls(controls: BottomSheetMethods): void;
 };
@@ -25,17 +25,17 @@ export const useStore = create<UseStore>(set => ({
   update: task =>
     set(state => ({
       ...state,
-      tasks: state.tasks.map(t => (t._id === task._id ? task : t)),
+      tasks: state.tasks.map(t => (t.id === task.id ? task : t)),
     })),
-  remove: _id =>
+  remove: id =>
     set(state => ({
       ...state,
-      tasks: state.tasks.filter(task => task._id !== _id),
+      tasks: state.tasks.filter(task => task.id !== id),
     })),
-  addTaskIdToUpdate: _id =>
+  addTaskIdToUpdate: id =>
     set(state => ({
       ...state,
-      taskIdToUpdate: _id,
+      taskIdToUpdate: id,
     })),
   removeTaskIdToUpdate: () =>
     set(state => ({

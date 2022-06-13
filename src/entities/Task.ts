@@ -1,5 +1,5 @@
 export interface Task {
-  _id: string;
+  id: string;
   name: string;
   status: 'resolved' | 'unresolved';
 }
