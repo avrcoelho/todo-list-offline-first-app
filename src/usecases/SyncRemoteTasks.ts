@@ -19,5 +19,6 @@ export class SyncRemoteTasks {
         await this.taskRepository.create(task);
       }),
     );
+    return tasks;
   }
 }

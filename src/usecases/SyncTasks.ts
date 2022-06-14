@@ -18,9 +18,9 @@ export class SyncTasks {
       this.syncTasksCreated.execute(),
       this.syncTasksUpdated.execute(),
       this.syncTasksDeleted.execute(),
-      this.syncRemoteTasks.execute(),
     ];
     await Promise.all(requests);
     this.taskRepository.close();
+    return this.syncRemoteTasks.execute();
   }
 }

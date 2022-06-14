@@ -33,5 +33,5 @@ export const makeSyncTasks = async () => {
     syncRemoteTasks,
     taskRepository,
   );
-  await syncTasks.execute.bind(syncTasks)();
+  return syncTasks.execute.bind(syncTasks)();
 };

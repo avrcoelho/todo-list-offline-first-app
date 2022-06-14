@@ -5,6 +5,7 @@ import { useNotification } from 'react-native-hook-notification';
 import { makeSyncTasks } from '../../main/factories/usecases/syncTasks';
 import { useAppStateListener } from './useAppStateListener';
 import { useMutation } from './useMutation';
+import { useStore } from '../store/useStore';
 
 export const useSyncTasks = () => {
   const netInfo = useNetInfo();
@@ -16,11 +17,16 @@ export const useSyncTasks = () => {
     enable: isConnected,
   });
 
+  const initData = useStore(state => state.init);
   useEffect(() => {
     if (isConnected) {
-      mutate();
+      mutate().then(response => {
+        if (response) {
+          initData(response);
+        }
+      });
     }
-  }, [mutate, isConnected]);
+  }, [mutate, isConnected, initData]);
 
   const notification = useNotification();
   useEffect(() => {
