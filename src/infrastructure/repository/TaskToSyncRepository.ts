@@ -2,12 +2,11 @@ import { TaskToSync } from '../../entities/TaskToSync';
 import { TaskToSyncRepositoryPort } from '../../usecases/ports/TaskToSyncRepository';
 import { Store } from '../store';
 
-export class TaskToSyncRepository
-  extends Store
-  implements TaskToSyncRepositoryPort
-{
+const storeInstance = Store.getInstance();
+
+export class TaskToSyncRepository implements TaskToSyncRepositoryPort {
   async find(type: string): Promise<TaskToSync[]> {
-    const store = await this.init();
+    const store = await storeInstance.getConnection();
     const tasks = store.objects<TaskToSync>('TaskToSync');
     const filtered = tasks.filtered(`type = "${type}"`);
     const tasksToSyncSerialized = filtered.map(task => ({
@@ -15,40 +14,38 @@ export class TaskToSyncRepository
       taskId: task.taskId,
       type: task.type,
     }));
-    store.close();
     return tasksToSyncSerialized;
   }
 
-  async findById(id: string, store?: Realm): Promise<TaskToSync | undefined> {
-    const newStoreInstance = store || (await this.init());
+  async findById(id: string): Promise<TaskToSync | undefined> {
+    const newStoreInstance = await storeInstance.getConnection();
     const idParsed = new Realm.BSON.ObjectId(id);
     const taskToSync = newStoreInstance.objectForPrimaryKey<TaskToSync>(
       'TaskToSync',
       idParsed,
     );
-    if (!store) {
-      newStoreInstance.close();
-    }
     return taskToSync;
   }
 
   async create(taskToSync: TaskToSync): Promise<void> {
-    const store = await this.init();
+    const store = await storeInstance.getConnection();
     const id = new Realm.BSON.ObjectId();
     const taskId = new Realm.BSON.ObjectId(taskToSync.taskId);
     store.write(() => {
       store.create('TaskToSync', { ...taskToSync, id, taskId });
     });
-    store.close();
   }
 
   async deleteById(id: string): Promise<void> {
-    const store = await this.init();
-    let taskToSync = await this.findById(id, store);
+    const store = await storeInstance.getConnection();
+    let taskToSync = await this.findById(id);
     store.write(async () => {
       store.delete(taskToSync);
       taskToSync = undefined;
     });
-    store.close();
+  }
+
+  close() {
+    storeInstance.close();
   }
 }

@@ -14,6 +14,7 @@ export class UpdateTask {
       taskId: task.id,
       type: 'updated',
     });
+    this.taskRepository.close();
     return task;
   }
 }

@@ -4,6 +4,8 @@ export class GetTask {
   constructor(private readonly taskRepository: TaskRepository) {}
 
   async execute(id: string) {
-    return this.taskRepository.findById(id);
+    const task = await this.taskRepository.findById(id);
+    this.taskRepository.close();
+    return task;
   }
 }

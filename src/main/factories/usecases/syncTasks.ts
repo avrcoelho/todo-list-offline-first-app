@@ -1,6 +1,7 @@
 import { TaskGateway } from '../../../infrastructure/gateways/TaskGateway';
 import { TaskRepository } from '../../../infrastructure/repository/TaskRepository';
 import { TaskToSyncRepository } from '../../../infrastructure/repository/TaskToSyncRepository';
+import { SyncRemoteTasks } from '../../../usecases/SyncRemoteTasks';
 import { SyncTasks } from '../../../usecases/SyncTasks';
 import { SyncTasksCreated } from '../../../usecases/SyncTasksCreated';
 import { SyncTasksDeleted } from '../../../usecases/SyncTasksDeleted';
@@ -24,10 +25,13 @@ export const makeSyncTasks = async () => {
     taskToSyncRepository,
     taskGateway,
   );
+  const syncRemoteTasks = new SyncRemoteTasks(taskRepository, taskGateway);
   const syncTasks = new SyncTasks(
     syncTasksCreated,
     syncTasksUpdated,
     syncTasksDeleted,
+    syncRemoteTasks,
+    taskRepository,
   );
   await syncTasks.execute.bind(syncTasks)();
 };

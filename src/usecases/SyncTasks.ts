@@ -1,3 +1,5 @@
+import { TaskRepositoryPort } from './ports/TaskRepository';
+import { SyncRemoteTasks } from './SyncRemoteTasks';
 import { SyncTasksCreated } from './SyncTasksCreated';
 import { SyncTasksDeleted } from './SyncTasksDeleted';
 import { SyncTasksUpdated } from './SyncTasksUpdated';
@@ -7,11 +9,18 @@ export class SyncTasks {
     private readonly syncTasksCreated: SyncTasksCreated,
     private readonly syncTasksUpdated: SyncTasksUpdated,
     private readonly syncTasksDeleted: SyncTasksDeleted,
+    private readonly syncRemoteTasks: SyncRemoteTasks,
+    private readonly taskRepository: TaskRepositoryPort,
   ) {}
 
   async execute() {
-    await this.syncTasksCreated.execute();
-    await this.syncTasksUpdated.execute();
-    await this.syncTasksDeleted.execute();
+    const requests = [
+      this.syncTasksCreated.execute(),
+      this.syncTasksUpdated.execute(),
+      this.syncTasksDeleted.execute(),
+      this.syncRemoteTasks.execute(),
+    ];
+    await Promise.all(requests);
+    this.taskRepository.close();
   }
 }

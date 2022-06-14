@@ -5,6 +5,8 @@ export class GetTasks {
   constructor(private readonly taskRepository: TaskRepository) {}
 
   async execute(params?: Partial<Task>) {
-    return this.taskRepository.find(params);
+    const tasks = await this.taskRepository.find(params);
+    this.taskRepository.close();
+    return tasks;
   }
 }

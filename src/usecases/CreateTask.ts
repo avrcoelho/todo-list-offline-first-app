@@ -14,6 +14,7 @@ export class CreateTask {
       taskId: task.id,
       type: 'created',
     });
+    this.taskRepository.close();
     return task;
   }
 }

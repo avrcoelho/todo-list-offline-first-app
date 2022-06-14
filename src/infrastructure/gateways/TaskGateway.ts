@@ -19,6 +19,13 @@ export class TaskGateway extends HttpClient implements TaskGatewayPort {
     }
   }
 
+  async find(): Promise<Task[]> {
+    const { data } = await this.getRequest<Task[]>({
+      url: URL,
+    });
+    return data;
+  }
+
   async create(task: Task): Promise<void> {
     await this.postRequest({
       url: URL,
