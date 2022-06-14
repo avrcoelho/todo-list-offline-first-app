@@ -7,7 +7,6 @@ type UseStore = {
   tasks: Task[];
   taskIdToUpdate: null | string;
   bottomSheetControls: null | BottomSheetMethods;
-  canRefetch: boolean;
   init(tasks: Task[]): void;
   add(task: Task): void;
   update(task: Task): void;
@@ -15,14 +14,12 @@ type UseStore = {
   addTaskIdToUpdate(id: string): void;
   removeTaskIdToUpdate(): void;
   setBottomSheetControls(controls: BottomSheetMethods): void;
-  toggleCanRefetch(): void;
 };
 
 export const useStore = create<UseStore>(set => ({
   tasks: [],
   taskIdToUpdate: null,
   bottomSheetControls: null,
-  canRefetch: false,
   init: tasks => set({ tasks }),
   add: task => set(state => ({ ...state, tasks: [...state.tasks, task] })),
   update: task =>
@@ -49,10 +46,5 @@ export const useStore = create<UseStore>(set => ({
     set(state => ({
       ...state,
       bottomSheetControls: controls,
-    })),
-  toggleCanRefetch: () =>
-    set(state => ({
-      ...state,
-      canRefetch: !state.canRefetch,
     })),
 }));
