@@ -30,9 +30,9 @@ export class TaskRepository implements TaskRepositoryPort {
   }
 
   async findById(id: string): Promise<Task | undefined> {
-    const newStoreInstance = await storeInstance.getConnection();
+    const store = await storeInstance.getConnection();
     const idParsed = new Realm.BSON.ObjectId(id);
-    return newStoreInstance.objectForPrimaryKey<Task>('Task', idParsed);
+    return store.objectForPrimaryKey<Task>('Task', idParsed);
   }
 
   async create(task: CreateParams): Promise<Task> {

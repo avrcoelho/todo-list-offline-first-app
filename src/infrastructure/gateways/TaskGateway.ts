@@ -1,8 +1,12 @@
+import { Platform } from 'react-native';
 import { Task } from '../../entities/Task';
 import { TaskGatewayPort } from '../../usecases/ports/TaskGateway';
 import { HttpClient } from '../http/httpClient/HttpClient';
 
-const URL = 'http://localhost:3333/tasks';
+const URL = Platform.select({
+  ios: 'http://localhost:3333/tasks',
+  android: 'http://10.0.2.2:3333/tasks',
+}) as string;
 
 type ErrorData = {
   response: {

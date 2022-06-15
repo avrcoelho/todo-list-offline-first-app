@@ -23,7 +23,6 @@ export class Store {
       return this.connection;
     }
     return Realm.open({
-      path: 'DB',
       schema: [TaskSchema, TaskToSyncSchema],
     });
   }
