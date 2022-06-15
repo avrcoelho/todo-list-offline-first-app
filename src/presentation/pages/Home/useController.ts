@@ -69,6 +69,9 @@ export const useController = () => {
   );
   const onSetBottomSheetRef = useCallback(
     (ref: BottomSheetMethods) => {
+      if (bottomSheetRef.current) {
+        return;
+      }
       bottomSheetRef.current = ref;
       setBottomSheetControls(ref);
     },
