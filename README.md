@@ -15,13 +15,13 @@ A offline first mobile application to create to-do list 📱
 2 - Install dependencies:
 
 ```shell
- npm install
+npm install
 ```
 
 or
 
 ```shell
-   yarn
+yarn
 ```
 
 3 - Create a `db.json` file in the application root with the contents below:
@@ -35,13 +35,13 @@ or
 4 - Run server:
 
 ```shell
-   npm run jsonserver
+npm run jsonserver
 ```
 
 or
 
 ```shell
-   yarn jsonserver
+yarn jsonserver
 ```
 
 5 - Run application:
@@ -49,25 +49,25 @@ or
 **iOS**
 
 ```shell
-   npm run ios
+npm run ios
 ```
 
 or
 
 ```shell
-   yarn ios
+yarn ios
 ```
 
 **Android**
 
 ```shell
-   npm run android
+npm run android
 ```
 
 or
 
 ```shell
-   yarn android
+yarn android
 ```
 
 ---
