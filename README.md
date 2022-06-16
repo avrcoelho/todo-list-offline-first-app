@@ -2,7 +2,7 @@
 
 A offline first mobile application to create to-do list 📱
 
-<img src="assets/demo.gif" alt="Demo" height="350" />
+<img src="assets/demo.gif" alt="Demo" width="450" />
 
 ## Technologies used
 
