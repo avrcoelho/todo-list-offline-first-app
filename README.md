@@ -1,6 +1,6 @@
 # To-do List Offline First
 
-A offline first mobile application for create to-do list 📱
+A offline first mobile application to create to-do list 📱
 
 <img src="assets/demo.gif" alt="Demo" />
 
